@@ -62,6 +62,13 @@ public final class DatabaseManager {
                          "details TEXT NOT NULL, " +
                          "timestamp INTEGER NOT NULL" +
                          ");");
+
+            // Table for dynamic shop prices
+            stmt.execute("CREATE TABLE IF NOT EXISTS shop_dynamic_prices (" +
+                         "item_material TEXT PRIMARY KEY, " +
+                         "sales_count DOUBLE NOT NULL, " +
+                         "last_update INTEGER NOT NULL" +
+                         ");");
         }
     }
 
@@ -165,6 +172,38 @@ public final class DatabaseManager {
             ps.executeUpdate();
         } catch (SQLException e) {
             plugin.getLogger().log(Level.SEVERE, "Blad podczas zapisywania logu audytora dla gracza: " + uuid, e);
+        }
+    }
+
+    // Load all dynamic shop sales data on startup
+    public synchronized java.util.Map<String, pl.konrad.vipshop.shop.DynamicShopManager.SalesData> loadAllSalesData() {
+        java.util.Map<String, pl.konrad.vipshop.shop.DynamicShopManager.SalesData> map = new java.util.HashMap<>();
+        String query = "SELECT item_material, sales_count, last_update FROM shop_dynamic_prices;";
+        try (PreparedStatement ps = getConnection().prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                String material = rs.getString("item_material");
+                double count = rs.getDouble("sales_count");
+                long lastUpdate = rs.getLong("last_update");
+                map.put(material, new pl.konrad.vipshop.shop.DynamicShopManager.SalesData(count, lastUpdate));
+            }
+        } catch (SQLException e) {
+            plugin.getLogger().log(Level.SEVERE, "Blad wczytywania dynamicznych cen z bazy!", e);
+        }
+        return map;
+    }
+
+    // Save sales data for an item
+    public synchronized void saveSalesData(String material, double salesCount, long lastUpdate) {
+        String query = "INSERT INTO shop_dynamic_prices (item_material, sales_count, last_update) VALUES (?, ?, ?) " +
+                       "ON CONFLICT(item_material) DO UPDATE SET sales_count = excluded.sales_count, last_update = excluded.last_update;";
+        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+            ps.setString(1, material);
+            ps.setDouble(2, salesCount);
+            ps.setLong(3, lastUpdate);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            plugin.getLogger().log(Level.SEVERE, "Blad zapisu dynamicznych cen dla " + material, e);
         }
     }
 }

@@ -21,6 +21,7 @@ public final class VipShop extends JavaPlugin {
     private EconomyAuditor economyAuditor;
     private CustomItemManager customItemManager;
     private VIPShopCommand vipShopCommand;
+    private pl.konrad.vipshop.shop.DynamicShopManager dynamicShopManager;
 
     @Override
     public void onEnable() {
@@ -49,6 +50,10 @@ public final class VipShop extends JavaPlugin {
         // 4. Initialize Economy Auditor
         economyAuditor = new EconomyAuditor(this);
         economyAuditor.startAuditing();
+
+        // 4b. Initialize Dynamic Shop Manager
+        dynamicShopManager = new pl.konrad.vipshop.shop.DynamicShopManager(this);
+        dynamicShopManager.initialize();
 
         // 5. Register Commands
         PluginCommand shopCmd = getCommand("shop");
@@ -127,5 +132,9 @@ public final class VipShop extends JavaPlugin {
 
     public VIPShopCommand getVIPShopCommand() {
         return vipShopCommand;
+    }
+
+    public pl.konrad.vipshop.shop.DynamicShopManager getDynamicShopManager() {
+        return dynamicShopManager;
     }
 }

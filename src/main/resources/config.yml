@@ -1,5 +1,5 @@
 # ==========================================
-# VipShop Config
+# Shop Config (Version 26.1.2)
 # ==========================================
 
 # Configuration for the Economy Auditor (Anti-Dupe & Anti-Cheat)
@@ -26,48 +26,191 @@ auditor:
     - BEACON
     - SHULKER_BOX
 
-# Custom items VIP Shop pricing in Vault economy
-shop:
-  miner_pickaxe: 25000
-  compact_hammer: 50000
-  tunnel_destroyer: 150000
-  titan_excavator: 500000
-  titan_pickaxe: 120000
-  gold_vein_pickaxe: 100000
-  greed_artifact: 200000
-  smelt_drill: 75000
-  
-  collector_sword: 60000
-  butcher_sword: 250000
-  reaper_scythe: 180000
-  vampire_dagger: 90000
-  headhunter_sword: 150000
-  
-  titan_helmet: 80000
-  titan_chestplate: 150000
-  titan_leggings: 120000
-  titan_boots: 70000
-  hermes_boots: 250000
-  nightvision_helmet: 120000
-  magma_chestplate: 200000
-  
-  lumberjack_axe: 110000
-  harvest_hoe: 130000
-  magnetic_rod: 85000
-  bottomless_backpack: 300000
+# ==========================================
+# Dynamic Pricing Economy Shop Configuration
+# ==========================================
+dynamic-shop:
+  # Dynamic pricing parameters
+  pricing:
+    min-price-drop: 0.20        # Price drops by at least 20% once limit is crossed (0.20)
+    max-price-drop: 0.60        # Price drops by at most 60% due to extreme supply (0.60)
+    decay-rate-per-minute: 0.98 # Every minute, sales count decays by 2% (multiplied by 0.98)
+    min-sales-to-drop: 64       # First stack (64 items) has no price drop (grace limit)
 
-  amulet_berserker: 80000
-  amulet_phantom: 60000
-  amulet_vampire: 90000
-  amulet_seismic: 50000
-  amulet_gold_vein: 70000
-  amulet_wind: 55000
-  amulet_shadow: 75000
-  amulet_greed: 65000
-  amulet_necromancer: 85000
-  amulet_time: 120000
+  # Categorized shop items
+  categories:
+    blocks:
+      id: "blocks"
+      title: "<gradient:#55ff55:#00aa00><bold>✦ Bloki Budowlane ✦</bold></gradient>"
+      icon: "STONE"
+      items:
+        STONE:
+          base-buy: 1.5
+          base-sell: 0.12
+          threshold: 1000
+        COBBLESTONE:
+          base-buy: 1.0
+          base-sell: 0.06
+          threshold: 2000
+        DIRT:
+          base-buy: 1.0
+          base-sell: 0.05
+          threshold: 1200
+        SAND:
+          base-buy: 1.5
+          base-sell: 0.10
+          threshold: 1000
+        GRAVEL:
+          base-buy: 1.2
+          base-sell: 0.08
+          threshold: 1000
+        OAK_LOG:
+          base-buy: 4.0
+          base-sell: 0.50
+          threshold: 500
+        SPRUCE_LOG:
+          base-buy: 4.0
+          base-sell: 0.50
+          threshold: 500
+        BIRCH_LOG:
+          base-buy: 4.0
+          base-sell: 0.50
+          threshold: 500
+        OAK_PLANKS:
+          base-buy: 1.0
+          base-sell: 0.10
+          threshold: 1500
+        GLASS:
+          base-buy: 2.0
+          base-sell: 0.15
+          threshold: 800
+        SMOOTH_STONE:
+          base-buy: 2.5
+          base-sell: 0.20
+          threshold: 800
+        STONE_BRICKS:
+          base-buy: 2.0
+          base-sell: 0.16
+          threshold: 1000
 
-  amulet_volcano: 65000
-  amulet_tide: 40000
-  amulet_illusion: 75000
-  amulet_tsunami: 85000
+    farming:
+      id: "farming"
+      title: "<gradient:#ffff55:#ffaa00><bold>✦ Rolnictwo i Jedzenie ✦</bold></gradient>"
+      icon: "HAY_BLOCK"
+      items:
+        WHEAT:
+          base-buy: 1.5
+          base-sell: 0.15
+          threshold: 1000
+        POTATO:
+          base-buy: 1.0
+          base-sell: 0.10
+          threshold: 1500
+        CARROT:
+          base-buy: 1.0
+          base-sell: 0.10
+          threshold: 1500
+        SUGAR_CANE:
+          base-buy: 2.0
+          base-sell: 0.20
+          threshold: 1000
+        CACTUS:
+          base-buy: 1.5
+          base-sell: 0.12
+          threshold: 1200
+        MELON:
+          base-buy: 4.0
+          base-sell: 0.30
+          threshold: 1000
+        PUMPKIN:
+          base-buy: 3.0
+          base-sell: 0.25
+          threshold: 800
+        APPLE:
+          base-buy: 5.0
+          base-sell: 0.50
+          threshold: 500
+        LEATHER:
+          base-buy: 8.0
+          base-sell: 0.80
+          threshold: 400
+        FEATHER:
+          base-buy: 1.5
+          base-sell: 0.12
+          threshold: 1000
+
+    drops:
+      id: "drops"
+      title: "<gradient:#ff5555:#aa0000><bold>✦ Łupy z Potworów ✦</bold></gradient>"
+      icon: "BONE"
+      items:
+        ROTTEN_FLESH:
+          base-buy: 1.0
+          base-sell: 0.08
+          threshold: 2000
+        BONE:
+          base-buy: 2.5
+          base-sell: 0.22
+          threshold: 1200
+        GUNPOWDER:
+          base-buy: 10.0
+          base-sell: 0.90
+          threshold: 600
+        STRING:
+          base-buy: 2.0
+          base-sell: 0.16
+          threshold: 1200
+        SPIDER_EYE:
+          base-buy: 4.0
+          base-sell: 0.35
+          threshold: 600
+        ENDER_PEARL:
+          base-buy: 20.0
+          base-sell: 1.50
+          threshold: 400
+        SLIME_BALL:
+          base-buy: 15.0
+          base-sell: 1.20
+          threshold: 400
+        BLAZE_ROD:
+          base-buy: 25.0
+          base-sell: 2.00
+          threshold: 300
+
+    minerals:
+      id: "minerals"
+      title: "<gradient:#55ffff:#00aaaa><bold>✦ Surowce i Minerały ✦</bold></gradient>"
+      icon: "DIAMOND"
+      items:
+        COAL:
+          base-buy: 4.0
+          base-sell: 0.35
+          threshold: 1200
+        COPPER_INGOT:
+          base-buy: 2.5
+          base-sell: 0.18
+          threshold: 1800
+        IRON_INGOT:
+          base-buy: 12.0
+          base-sell: 1.00
+          threshold: 1000
+        GOLD_INGOT:
+          base-buy: 24.0
+          base-sell: 2.00
+          threshold: 600
+        REDSTONE:
+          base-buy: 3.0
+          base-sell: 0.25
+          threshold: 1500
+        LAPIS_LAZULI:
+          base-buy: 5.0
+          base-sell: 0.45
+          threshold: 1200
+        EMERALD:
+          base-buy: 40.0
+          base-sell: 3.50
+          threshold: 400
+        DIAMOND:
+          base-buy: 120.0
+          base-sell: 10.00
+          threshold: 250
