@@ -1,0 +1,19 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/gold_nugget"
+    },
+    "cases": [
+      {
+        "when": "2005",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:custom/amulets/amulet_gold_vein"
+        }
+      }
+    ]
+  }
+}

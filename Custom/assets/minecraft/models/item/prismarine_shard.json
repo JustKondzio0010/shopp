@@ -1,0 +1,9 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "item/prismarine_shard"
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 2014 }, "model": "custom/amulets/amulet_tsunami" }
+  ]
+}

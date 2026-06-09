@@ -1,0 +1,48 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "minecraft:custom_name",
+    "cases": [
+      {
+        "when": "Viridian Shovel",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/viridian_shovel"
+        }
+      },
+      {
+        "when": "Azure Shovel",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/azure_shovel"
+        }
+      },
+      {
+        "when": "Amethyst Greatshovel",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/amethyst_greatshovel"
+        }
+      },
+      {
+        "when": "Demon's Blood Shovel",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/demons_blood_shovel"
+        }
+      },
+      {
+        "when": "Talonshovel",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/talonshovel"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/stone_shovel"
+    }
+  }
+}

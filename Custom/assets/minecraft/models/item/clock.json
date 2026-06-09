@@ -1,0 +1,9 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "item/clock"
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 2010 }, "model": "custom/amulets/amulet_time" }
+  ]
+}

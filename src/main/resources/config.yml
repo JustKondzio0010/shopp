@@ -1,0 +1,73 @@
+# ==========================================
+# VipShop Config
+# ==========================================
+
+# Configuration for the Economy Auditor (Anti-Dupe & Anti-Cheat)
+auditor:
+  enabled: true
+  # Wealth spike settings
+  wealth-spike-threshold: 100000.0  # Max money a player can gain in X minutes
+  wealth-spike-time-minutes: 5      # Audit window size in minutes
+  
+  # Item drop audit settings
+  drop-valuable-threshold: 64       # Max valuable items dropped in X minutes
+  drop-valuable-time-minutes: 1     # Audit window size in minutes
+  
+  # List of materials monitored for drop counts
+  valuable-materials:
+    - DIAMOND
+    - DIAMOND_BLOCK
+    - NETHERITE_INGOT
+    - NETHERITE_BLOCK
+    - GOLD_INGOT
+    - GOLD_BLOCK
+    - EMERALD
+    - EMERALD_BLOCK
+    - BEACON
+    - SHULKER_BOX
+
+# Custom items VIP Shop pricing in Vault economy
+shop:
+  miner_pickaxe: 25000
+  compact_hammer: 50000
+  tunnel_destroyer: 150000
+  titan_excavator: 500000
+  titan_pickaxe: 120000
+  gold_vein_pickaxe: 100000
+  greed_artifact: 200000
+  smelt_drill: 75000
+  
+  collector_sword: 60000
+  butcher_sword: 250000
+  reaper_scythe: 180000
+  vampire_dagger: 90000
+  headhunter_sword: 150000
+  
+  titan_helmet: 80000
+  titan_chestplate: 150000
+  titan_leggings: 120000
+  titan_boots: 70000
+  hermes_boots: 250000
+  nightvision_helmet: 120000
+  magma_chestplate: 200000
+  
+  lumberjack_axe: 110000
+  harvest_hoe: 130000
+  magnetic_rod: 85000
+  bottomless_backpack: 300000
+
+  amulet_berserker: 80000
+  amulet_phantom: 60000
+  amulet_vampire: 90000
+  amulet_seismic: 50000
+  amulet_gold_vein: 70000
+  amulet_wind: 55000
+  amulet_shadow: 75000
+  amulet_greed: 65000
+  amulet_necromancer: 85000
+  amulet_time: 120000
+
+  amulet_volcano: 65000
+  amulet_tide: 40000
+  amulet_illusion: 75000
+  amulet_tsunami: 85000

@@ -1,0 +1,580 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "minecraft:custom_name",
+    "cases": [
+      {
+        "when": "Iron Polearm",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_polearm"
+        }
+      },
+      {
+        "when": "Iron Mace",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_mace"
+        }
+      },
+      {
+        "when": "Treacherous Axe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/treacherous_axe"
+        }
+      },
+      {
+        "when": "Treacherous Cleaver",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/treacherous_cleaver"
+        }
+      },
+      {
+        "when": "Treacherous Bludgeon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/treacherous_bludgeon"
+        }
+      },
+      {
+        "when": "Runic Piercer",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/runic_piercer"
+        }
+      },
+      {
+        "when": "Nature Sword",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/nature_sword"
+        }
+      },
+      {
+        "when": "Demonic Sword",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/demonic_sword"
+        }
+      },
+      {
+        "when": "Wooden Bludgeon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/wooden_bludgeon"
+        }
+      },
+      {
+        "when": "Piercer",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/piercer"
+        }
+      },
+      {
+        "when": "Skeleton Axe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/skeleton_axe"
+        }
+      },
+      {
+        "when": "Spider Sword",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/spider_sword"
+        }
+      },
+      {
+        "when": "Dragon Sword",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/dragon_sword"
+        }
+      },
+      {
+        "when": "Crimson Cleaver",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/crimson_cleaver"
+        }
+      },
+      {
+        "when": "Azure Scythe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/azure_scythe"
+        }
+      },
+      {
+        "when": "Azure Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/azure_greataxe"
+        }
+      },
+      {
+        "when": "Azure Sabre",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/azure_sabre"
+        }
+      },
+      {
+        "when": "Azure Dagger",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/azure_dagger"
+        }
+      },
+      {
+        "when": "Azure Greatsword",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/azure_greatsword"
+        }
+      },
+      {
+        "when": "Oculus",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/oculus"
+        }
+      },
+      {
+        "when": "Void Oculus",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/void_oculus"
+        }
+      },
+      {
+        "when": "Moonlight",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/moonlight"
+        }
+      },
+      {
+        "when": "Iron Broadsword",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_broadsword"
+        }
+      },
+      {
+        "when": "Iron Battle Axe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_battle_axe"
+        }
+      },
+      {
+        "when": "Sacrificial Cleaver",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/sacrificial_cleaver"
+        }
+      },
+      {
+        "when": "Demonslayer's Greatsword",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/demonslayers_greatsword"
+        }
+      },
+      {
+        "when": "Demon's Blood Blade",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/demons_blood_blade"
+        }
+      },
+      {
+        "when": "Ancient Greatslab",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/ancient_greatslab"
+        }
+      },
+      {
+        "when": "Solstice",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/solstice"
+        }
+      },
+      {
+        "when": "Emerald Greatcleaver",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/emerald_greatcleaver"
+        }
+      },
+      {
+        "when": "Calamity Blade",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/calamity_blade"
+        }
+      },
+      {
+        "when": "Vesper",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/vesper"
+        }
+      },
+      {
+        "when": "Iron Halberd",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_halberd"
+        }
+      },
+      {
+        "when": "Iron Dagger",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_dagger"
+        }
+      },
+      {
+        "when": "Flamberge",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/flamberge"
+        }
+      },
+      {
+        "when": "Gloomsteel Knife",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/gloomsteel_knife"
+        }
+      },
+      {
+        "when": "Gloomsteel Katana",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/gloomsteel_katana"
+        }
+      },
+      {
+        "when": "Gloomsteel Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/gloomsteel_greataxe"
+        }
+      },
+      {
+        "when": "Lycanbane",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lycanbane"
+        }
+      },
+      {
+        "when": "Claymore",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/claymore"
+        }
+      },
+      {
+        "when": "Grand Claymore",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/grand_claymore"
+        }
+      },
+      {
+        "when": "Revenant's Gravecleaver",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/revenants_gravecleaver"
+        }
+      },
+      {
+        "when": "Vindicator",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/vindicator"
+        }
+      },
+      {
+        "when": "Zenith",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/zenith"
+        }
+      },
+      {
+        "when": "Crystal Frostblade",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/crystal_frostblade"
+        }
+      },
+      {
+        "when": "Ethereal Frostblade",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/ethereal_frostblade"
+        }
+      },
+      {
+        "when": "Iron Sai",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_sai"
+        }
+      },
+      {
+        "when": "Vengeance Blade",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/vengeance_blade"
+        }
+      },
+      {
+        "when": "Crystal Frostscythe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/crystal_frostscythe"
+        }
+      },
+      {
+        "when": "Black Iron Clobberer",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/black_iron_clobberer"
+        }
+      },
+      {
+        "when": "Iron Hay Scythe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_hay_sickle"
+        }
+      },
+      {
+        "when": "Iron Hay Sickle",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_hay_sickle"
+        }
+      },
+      {
+        "when": "Iron Scythe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_hay_sickle"
+        }
+      },
+      {
+        "when": "Uchigatana",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/uchigatana"
+        }
+      },
+      {
+        "when": "Windreaper",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/windreaper"
+        }
+      },
+      {
+        "when": "Revenant's Gravescepter",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/revenants_gravescepter"
+        }
+      },
+      {
+        "when": "Revenant's Darkscepter",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/revenants_darkscepter"
+        }
+      },
+      {
+        "when": "Iron Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_greataxe"
+        }
+      },
+      {
+        "when": "Crescent Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/crescent_greataxe"
+        }
+      },
+      {
+        "when": "Berserker's Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/berserkers_greataxe"
+        }
+      },
+      {
+        "when": "Berserker's Cleaver",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/berserkers_cleaver"
+        }
+      },
+      {
+        "when": "Phantomguard Partisan",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/phantomguard_partisan"
+        }
+      },
+      {
+        "when": "Talonbrand",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/talonbrand"
+        }
+      },
+      {
+        "when": "Viridian Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/viridian_greataxe"
+        }
+      },
+      {
+        "when": "Wooden Tonfa",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/wooden_tonfa"
+        }
+      },
+      {
+        "when": "Amethyst Greatblade",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/amethyst_greatblade"
+        }
+      },
+      {
+        "when": "Black Iron Greatsword",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/black_iron_greatsword"
+        }
+      },
+      {
+        "when": "Valhakyra",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/valhakyra"
+        }
+      },
+      {
+        "when": "Phantomguard Greatsword",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/phantomguard_greatsword"
+        }
+      },
+      {
+        "when": "Heavenly Partisan",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/heavenly_partisan"
+        }
+      },
+      {
+        "when": "Black Iron Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/black_iron_greataxe"
+        }
+      },
+      {
+        "when": "Gilded Phoenix Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/gilded_phoenix_greataxe"
+        }
+      },
+      {
+        "when": "Nocturne",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/nocturne"
+        }
+      },
+      {
+        "when": "Ravenous Blade",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/ravenous_blade"
+        }
+      },
+      {
+        "when": "Talonpick",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/talonpick"
+        }
+      },
+      {
+        "when": "Viridian Pickaxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/viridian_pickaxe"
+        }
+      },
+      {
+        "when": "Amethyst Greatpick",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/amethyst_greatpick"
+        }
+      },
+      {
+        "when": "Demon's Blood Pick",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/demons_blood_pick"
+        }
+      },
+      {
+        "when": "Azure Pickaxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/azure_pickaxe"
+        }
+      },
+      {
+        "when": "Vaelith",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/vaelith"
+        }
+      },
+      {
+        "when": "Winterthorn",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/winterthorn"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/diamond_sword"
+    }
+  }
+}

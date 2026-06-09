@@ -1,0 +1,118 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "minecraft:custom_name",
+    "cases": [
+      {
+        "when": "Iron Mace",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_mace"
+        }
+      },
+      {
+        "when": "Treacherous Axe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/treacherous_axe"
+        }
+      },
+      {
+        "when": "Treacherous Bludgeon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/treacherous_bludgeon"
+        }
+      },
+      {
+        "when": "Wooden Bludgeon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/wooden_bludgeon"
+        }
+      },
+      {
+        "when": "Skeleton Axe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/skeleton_axe"
+        }
+      },
+      {
+        "when": "Azure Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/azure_greataxe"
+        }
+      },
+      {
+        "when": "Iron Battle Axe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_battle_axe"
+        }
+      },
+      {
+        "when": "Gloomsteel Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/gloomsteel_greataxe"
+        }
+      },
+      {
+        "when": "Black Iron Clobberer",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/black_iron_clobberer"
+        }
+      },
+      {
+        "when": "Iron Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/iron_greataxe"
+        }
+      },
+      {
+        "when": "Crescent Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/crescent_greataxe"
+        }
+      },
+      {
+        "when": "Berserker's Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/berserkers_greataxe"
+        }
+      },
+      {
+        "when": "Viridian Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/viridian_greataxe"
+        }
+      },
+      {
+        "when": "Black Iron Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/black_iron_greataxe"
+        }
+      },
+      {
+        "when": "Gilded Phoenix Greataxe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/gilded_phoenix_greataxe"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/mace"
+    }
+  }
+}

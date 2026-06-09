@@ -1,0 +1,23 @@
+name: VipShop
+version: 1.0.0
+main: pl.konrad.vipshop.VipShop
+api-version: '1.20'
+authors: [konrad]
+description: Advanced Economy Auditor and Custom Items VIP Shop.
+depend: [Vault]
+commands:
+  sklep_vip:
+    description: Otwiera sklep z customowymi przedmiotami VIP.
+    aliases: [sklepvip, vipshop]
+    usage: /sklep_vip
+  unfreeze:
+    description: Odmraza zablokowanego gracza przez Audytora.
+    usage: /unfreeze <nick>
+    permission: vipshop.admin.unfreeze
+permissions:
+  vipshop.use:
+    description: Zezwala na użycie sklepu VIP.
+    default: true
+  vipshop.admin.alerts:
+    description: Zezwala na otrzymywanie alertów o anomaliach ekonomicznych.
+    default: op

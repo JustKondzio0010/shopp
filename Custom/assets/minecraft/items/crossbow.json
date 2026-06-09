@@ -1,0 +1,40 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/crossbow"
+    },
+    "cases": [
+      {
+        "when": "1",
+        "model": {
+          "type": "minecraft:model",
+          "model": "skulpt:compendiums/platinum_compendium/platinum_crossbow"
+        }
+      },
+      {
+        "when": "1",
+        "model": {
+          "type": "minecraft:model",
+          "model": "skulpt:compendiums/platinum_compendium/platinum_crossbow_pulling_0"
+        }
+      },
+      {
+        "when": "1",
+        "model": {
+          "type": "minecraft:model",
+          "model": "skulpt:compendiums/platinum_compendium/platinum_crossbow_pulling_1"
+        }
+      },
+      {
+        "when": "1",
+        "model": {
+          "type": "minecraft:model",
+          "model": "skulpt:compendiums/platinum_compendium/platinum_crossbow_pulling_2"
+        }
+      }
+    ]
+  }
+}

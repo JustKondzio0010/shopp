@@ -1,0 +1,18 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "item/netherite_axe"
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 1 }, "model": "item/azure_greataxe" },
+    { "predicate": { "custom_model_data": 2 }, "model": "item/berserkers_greataxe" },
+    { "predicate": { "custom_model_data": 3 }, "model": "item/black_iron_greataxe" },
+    { "predicate": { "custom_model_data": 4 }, "model": "item/gilded_phoenix_greataxe" },
+    { "predicate": { "custom_model_data": 5 }, "model": "item/skeleton_axe" },
+    { "predicate": { "custom_model_data": 6 }, "model": "skulpt:compendiums/platinum_compendium/platinum_axe" },
+    { "predicate": { "custom_model_data": 7 }, "model": "skulpt:compendiums/platinum_compendium/platinum_battleaxe" },
+    { "predicate": { "custom_model_data": 8 }, "model": "skulpt:compendiums/platinum_compendium/platinum_halberd" },
+    { "predicate": { "custom_model_data": 9 }, "model": "shine_oni:axe" },
+    { "predicate": { "custom_model_data": 10 }, "model": "skulpt:compendiums/platinum_compendium/platinum_hammer" }
+  ]
+}

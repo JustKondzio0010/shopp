@@ -1,0 +1,9 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "item/emerald"
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 2008 }, "model": "custom/amulets/amulet_greed" }
+  ]
+}

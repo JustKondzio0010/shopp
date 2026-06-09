@@ -1,0 +1,231 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "minecraft:custom_name",
+    "cases": [
+      {
+        "when": "Azure Dagger",
+        "model": {
+          "type": "minecraft:condition",
+          "property": "minecraft:using_item",
+          "on_false": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/azure_dagger"
+          },
+          "on_true": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/azure_dagger_blocking"
+          }
+        }
+      },
+      {
+        "when": "Moonlight",
+        "model": {
+          "type": "minecraft:condition",
+          "property": "minecraft:using_item",
+          "on_false": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/moonlight"
+          },
+          "on_true": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/moonlight_blocking"
+          }
+        }
+      },
+      {
+        "when": "Iron Dagger",
+        "model": {
+          "type": "minecraft:condition",
+          "property": "minecraft:using_item",
+          "on_false": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/iron_dagger"
+          },
+          "on_true": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/iron_dagger_blocking"
+          }
+        }
+      },
+      {
+        "when": "Gloomsteel Knife",
+        "model": {
+          "type": "minecraft:condition",
+          "property": "minecraft:using_item",
+          "on_false": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/gloomsteel_knife"
+          },
+          "on_true": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/gloomsteel_knife_blocking"
+          }
+        }
+      },
+      {
+        "when": "Gloomsteel Katana",
+        "model": {
+          "type": "minecraft:condition",
+          "property": "minecraft:using_item",
+          "on_false": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/gloomsteel_katana"
+          },
+          "on_true": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/gloomsteel_katana_blocking"
+          }
+        }
+      },
+      {
+        "when": "Vindicator",
+        "model": {
+          "type": "minecraft:condition",
+          "property": "minecraft:using_item",
+          "on_false": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/vindicator"
+          },
+          "on_true": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/vindicator_blocking"
+          }
+        }
+      },
+      {
+        "when": "Zenith",
+        "model": {
+          "type": "minecraft:condition",
+          "property": "minecraft:using_item",
+          "on_false": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/zenith"
+          },
+          "on_true": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/zenith_blocking"
+          }
+        }
+      },
+      {
+        "when": "Iron Sai",
+        "model": {
+          "type": "minecraft:condition",
+          "property": "minecraft:using_item",
+          "on_false": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/iron_sai"
+          },
+          "on_true": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/iron_sai_blocking"
+          }
+        }
+      },
+      {
+        "when": "Vengeance Blade",
+        "model": {
+          "type": "minecraft:condition",
+          "property": "minecraft:using_item",
+          "on_false": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/vengeance_blade"
+          },
+          "on_true": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/vengeance_blade_blocking"
+          }
+        }
+      },
+      {
+        "when": "Uchigatana",
+        "model": {
+          "type": "minecraft:condition",
+          "property": "minecraft:using_item",
+          "on_false": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/uchigatana"
+          },
+          "on_true": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/uchigatana_blocking"
+          }
+        }
+      },
+      {
+        "when": "Wooden Tonfa",
+        "model": {
+          "type": "minecraft:condition",
+          "property": "minecraft:using_item",
+          "on_false": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/wooden_tonfa"
+          },
+          "on_true": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/wooden_tonfa_blocking"
+          }
+        }
+      },
+      {
+        "when": "Invisible Shield",
+        "model": {
+          "type": "minecraft:condition",
+          "property": "minecraft:using_item",
+          "on_false": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/invisible_shield"
+          },
+          "on_true": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/invisible_shield"
+          }
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:condition",
+      "on_false": {
+        "type": "minecraft:special",
+        "base": "minecraft:item/shield",
+        "model": {
+          "type": "minecraft:shield"
+        }
+      },
+      "on_true": {
+        "type": "minecraft:special",
+        "base": "minecraft:item/shield_blocking",
+        "model": {
+          "type": "minecraft:shield"
+        }
+      },
+      "property": "minecraft:using_item",
+      "transformation": {
+        "left_rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "right_rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          -1,
+          -1
+        ],
+        "translation": [
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  }
+}

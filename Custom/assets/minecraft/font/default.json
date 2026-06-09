@@ -1,0 +1,94 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "minecraft:font/hardcore_heart_1.png",
+      "ascent": 8,
+      "height": 8,
+      "chars": [
+        "\uE001"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "minecraft:font/hardcore_heart_2.png",
+      "ascent": 8,
+      "height": 8,
+      "chars": [
+        "\uE002"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "minecraft:font/hardcore_heart_3.png",
+      "ascent": 8,
+      "height": 8,
+      "chars": [
+        "\uE003"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "minecraft:font/hardcore_heart_4.png",
+      "ascent": 8,
+      "height": 8,
+      "chars": [
+        "\uE004"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "minecraft:font/hardcore_heart_5.png",
+      "ascent": 8,
+      "height": 8,
+      "chars": [
+        "\uE005"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "minecraft:font/hardcore_heart_6.png",
+      "ascent": 8,
+      "height": 8,
+      "chars": [
+        "\uE006"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "minecraft:font/hardcore_heart_7.png",
+      "ascent": 8,
+      "height": 8,
+      "chars": [
+        "\uE007"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "minecraft:font/hardcore_heart_8.png",
+      "ascent": 8,
+      "height": 8,
+      "chars": [
+        "\uE008"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "minecraft:font/hardcore_heart_9.png",
+      "ascent": 8,
+      "height": 8,
+      "chars": [
+        "\uE009"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "minecraft:font/hardcore_heart_10.png",
+      "ascent": 8,
+      "height": 8,
+      "chars": [
+        "\uE00A"
+      ]
+    }
+  ]
+}

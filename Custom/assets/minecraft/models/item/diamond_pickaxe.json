@@ -1,0 +1,38 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "item/diamond_pickaxe"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1001
+      },
+      "model": "wraith_dynasty:pickaxe"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 1002
+      },
+      "model": "wraith_dynasty:hammer"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 1006
+      },
+      "model": "wraith_dynasty:pickaxe"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 1007
+      },
+      "model": "wraith_dynasty:key"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 1008
+      },
+      "model": "wraith_dynasty:pickaxe"
+    }
+  ]
+}

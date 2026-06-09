@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "item/chest"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1024
+      },
+      "model": "wraith_dynasty:chest"
+    }
+  ]
+}
