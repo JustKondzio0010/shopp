@@ -41,176 +41,325 @@ dynamic-shop:
   categories:
     blocks:
       id: "blocks"
-      title: "<gradient:#55ff55:#00aa00><bold>✦ Bloki Budowlane ✦</bold></gradient>"
-      icon: "STONE"
+      title: "<gradient:#55ff55:#00aa00><bold>✦ Building Blocks ✦</bold></gradient>"
+      icon: "BRICKS"
       items:
+        # Basic Dirt & Stone
         STONE:
           base-buy: 1.5
           base-sell: 0.12
-          threshold: 1000
+          threshold: 3000
         COBBLESTONE:
           base-buy: 1.0
           base-sell: 0.06
-          threshold: 2000
+          threshold: 5000
         DIRT:
           base-buy: 1.0
           base-sell: 0.05
-          threshold: 1200
+          threshold: 4000
+        GRASS_BLOCK:
+          base-buy: 3.0
+          base-sell: 0.25
+          threshold: 1000
         SAND:
           base-buy: 1.5
           base-sell: 0.10
-          threshold: 1000
+          threshold: 3000
         GRAVEL:
           base-buy: 1.2
           base-sell: 0.08
-          threshold: 1000
-        OAK_LOG:
-          base-buy: 4.0
-          base-sell: 0.50
-          threshold: 500
-        SPRUCE_LOG:
-          base-buy: 4.0
-          base-sell: 0.50
-          threshold: 500
-        BIRCH_LOG:
-          base-buy: 4.0
-          base-sell: 0.50
-          threshold: 500
-        OAK_PLANKS:
-          base-buy: 1.0
-          base-sell: 0.10
-          threshold: 1500
+          threshold: 3000
         GLASS:
           base-buy: 2.0
           base-sell: 0.15
-          threshold: 800
+          threshold: 2000
         SMOOTH_STONE:
           base-buy: 2.5
           base-sell: 0.20
-          threshold: 800
+          threshold: 2000
         STONE_BRICKS:
           base-buy: 2.0
           base-sell: 0.16
+          threshold: 2500
+        CLAY:
+          base-buy: 3.0
+          base-sell: 0.24
+          threshold: 1500
+        TERRACOTTA:
+          base-buy: 2.5
+          base-sell: 0.20
+          threshold: 2000
+          
+        # Wood Logs
+        OAK_LOG:
+          base-buy: 4.0
+          base-sell: 0.50
+          threshold: 1500
+        SPRUCE_LOG:
+          base-buy: 4.0
+          base-sell: 0.50
+          threshold: 1500
+        BIRCH_LOG:
+          base-buy: 4.0
+          base-sell: 0.50
+          threshold: 1500
+        JUNGLE_LOG:
+          base-buy: 4.5
+          base-sell: 0.55
+          threshold: 1200
+        DARK_OAK_LOG:
+          base-buy: 4.5
+          base-sell: 0.55
+          threshold: 1200
+        CHERRY_LOG:
+          base-buy: 5.0
+          base-sell: 0.60
           threshold: 1000
+          
+        # Planks
+        OAK_PLANKS:
+          base-buy: 1.0
+          base-sell: 0.12
+          threshold: 4000
+        SPRUCE_PLANKS:
+          base-buy: 1.0
+          base-sell: 0.12
+          threshold: 4000
+        BIRCH_PLANKS:
+          base-buy: 1.0
+          base-sell: 0.12
+          threshold: 4000
+        JUNGLE_PLANKS:
+          base-buy: 1.1
+          base-sell: 0.13
+          threshold: 3500
+        DARK_OAK_PLANKS:
+          base-buy: 1.1
+          base-sell: 0.13
+          threshold: 3500
+        CHERRY_PLANKS:
+          base-buy: 1.2
+          base-sell: 0.15
+          threshold: 3000
+          
+        # Sandstone & Nether
+        SANDSTONE:
+          base-buy: 2.0
+          base-sell: 0.16
+          threshold: 2000
+        RED_SANDSTONE:
+          base-buy: 2.5
+          base-sell: 0.20
+          threshold: 1500
+        NETHERRACK:
+          base-buy: 0.8
+          base-sell: 0.04
+          threshold: 6000
+        SOUL_SAND:
+          base-buy: 3.0
+          base-sell: 0.25
+          threshold: 1200
+        GLOWSTONE:
+          base-buy: 12.0
+          base-sell: 1.00
+          threshold: 800
+        SEA_LANTERN:
+          base-buy: 16.0
+          base-sell: 1.30
+          threshold: 600
+        OBSIDIAN:
+          base-buy: 25.0
+          base-sell: 2.00
+          threshold: 500
+
+    redstone:
+      id: "redstone"
+      title: "<gradient:#ff3333:#990000><bold>✦ Redstone & Tech ✦</bold></gradient>"
+      icon: "REDSTONE"
+      items:
+        REDSTONE:
+          base-buy: 3.0
+          base-sell: 0.25
+          threshold: 2500
+        REDSTONE_BLOCK:
+          base-buy: 27.0
+          base-sell: 2.25
+          threshold: 800
+        REDSTONE_TORCH:
+          base-buy: 2.0
+          base-sell: 0.15
+          threshold: 1500
+        REPEATER:
+          base-buy: 10.0
+          base-sell: 0.80
+          threshold: 800
+        COMPARATOR:
+          base-buy: 15.0
+          base-sell: 1.20
+          threshold: 600
+        PISTON:
+          base-buy: 12.0
+          base-sell: 0.90
+          threshold: 1000
+        STICKY_PISTON:
+          base-buy: 20.0
+          base-sell: 1.50
+          threshold: 800
+        OBSERVER:
+          base-buy: 18.0
+          base-sell: 1.40
+          threshold: 800
+        HOPPER:
+          base-buy: 60.0
+          base-sell: 5.00
+          threshold: 400
+        DISPENSER:
+          base-buy: 15.0
+          base-sell: 1.10
+          threshold: 600
+        DROPPER:
+          base-buy: 8.0
+          base-sell: 0.60
+          threshold: 800
+        LEVER:
+          base-buy: 1.0
+          base-sell: 0.05
+          threshold: 2000
+        TARGET:
+          base-buy: 4.0
+          base-sell: 0.30
+          threshold: 800
+        REDSTONE_LAMP:
+          base-buy: 20.0
+          base-sell: 1.60
+          threshold: 500
+        NOTE_BLOCK:
+          base-buy: 12.0
+          base-sell: 0.90
+          threshold: 600
+        TRIPWIRE_HOOK:
+          base-buy: 4.0
+          base-sell: 0.30
+          threshold: 1000
+        DAYLIGHT_DETECTOR:
+          base-buy: 25.0
+          base-sell: 2.00
+          threshold: 400
 
     farming:
       id: "farming"
-      title: "<gradient:#ffff55:#ffaa00><bold>✦ Rolnictwo i Jedzenie ✦</bold></gradient>"
+      title: "<gradient:#ffff55:#ffaa00><bold>✦ Agriculture & Food ✦</bold></gradient>"
       icon: "HAY_BLOCK"
       items:
         WHEAT:
           base-buy: 1.5
           base-sell: 0.15
-          threshold: 1000
+          threshold: 2000
         POTATO:
           base-buy: 1.0
           base-sell: 0.10
-          threshold: 1500
+          threshold: 3000
         CARROT:
           base-buy: 1.0
           base-sell: 0.10
-          threshold: 1500
+          threshold: 3000
         SUGAR_CANE:
           base-buy: 2.0
           base-sell: 0.20
-          threshold: 1000
+          threshold: 2000
         CACTUS:
           base-buy: 1.5
           base-sell: 0.12
-          threshold: 1200
+          threshold: 2000
         MELON:
           base-buy: 4.0
           base-sell: 0.30
-          threshold: 1000
+          threshold: 1500
         PUMPKIN:
           base-buy: 3.0
           base-sell: 0.25
-          threshold: 800
+          threshold: 1200
         APPLE:
           base-buy: 5.0
           base-sell: 0.50
-          threshold: 500
+          threshold: 800
         LEATHER:
           base-buy: 8.0
           base-sell: 0.80
-          threshold: 400
+          threshold: 600
         FEATHER:
           base-buy: 1.5
           base-sell: 0.12
-          threshold: 1000
+          threshold: 2000
 
     drops:
       id: "drops"
-      title: "<gradient:#ff5555:#aa0000><bold>✦ Łupy z Potworów ✦</bold></gradient>"
+      title: "<gradient:#ff5555:#aa0000><bold>✦ Mob Drops ✦</bold></gradient>"
       icon: "BONE"
       items:
         ROTTEN_FLESH:
           base-buy: 1.0
           base-sell: 0.08
-          threshold: 2000
+          threshold: 4000
         BONE:
           base-buy: 2.5
           base-sell: 0.22
-          threshold: 1200
+          threshold: 2500
         GUNPOWDER:
           base-buy: 10.0
           base-sell: 0.90
-          threshold: 600
+          threshold: 1200
         STRING:
           base-buy: 2.0
           base-sell: 0.16
-          threshold: 1200
+          threshold: 2500
         SPIDER_EYE:
           base-buy: 4.0
           base-sell: 0.35
-          threshold: 600
+          threshold: 1200
         ENDER_PEARL:
           base-buy: 20.0
           base-sell: 1.50
-          threshold: 400
+          threshold: 800
         SLIME_BALL:
           base-buy: 15.0
           base-sell: 1.20
-          threshold: 400
+          threshold: 800
         BLAZE_ROD:
           base-buy: 25.0
           base-sell: 2.00
-          threshold: 300
+          threshold: 600
 
     minerals:
       id: "minerals"
-      title: "<gradient:#55ffff:#00aaaa><bold>✦ Surowce i Minerały ✦</bold></gradient>"
+      title: "<gradient:#55ffff:#00aaaa><bold>✦ Ore & Minerals ✦</bold></gradient>"
       icon: "DIAMOND"
       items:
         COAL:
           base-buy: 4.0
           base-sell: 0.35
-          threshold: 1200
+          threshold: 2500
         COPPER_INGOT:
           base-buy: 2.5
           base-sell: 0.18
-          threshold: 1800
+          threshold: 3000
         IRON_INGOT:
           base-buy: 12.0
           base-sell: 1.00
-          threshold: 1000
+          threshold: 2000
         GOLD_INGOT:
           base-buy: 24.0
           base-sell: 2.00
-          threshold: 600
-        REDSTONE:
-          base-buy: 3.0
-          base-sell: 0.25
-          threshold: 1500
+          threshold: 1200
         LAPIS_LAZULI:
           base-buy: 5.0
           base-sell: 0.45
-          threshold: 1200
+          threshold: 2000
         EMERALD:
           base-buy: 40.0
           base-sell: 3.50
-          threshold: 400
+          threshold: 800
         DIAMOND:
           base-buy: 120.0
           base-sell: 10.00
-          threshold: 250
+          threshold: 500

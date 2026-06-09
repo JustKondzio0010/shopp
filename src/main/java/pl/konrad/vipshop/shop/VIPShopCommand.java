@@ -13,6 +13,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
 import pl.konrad.vipshop.VipShop;
 import pl.konrad.vipshop.shop.DynamicShopManager.CategoryInfo;
@@ -28,12 +29,18 @@ public final class VIPShopCommand implements CommandExecutor {
     private final MiniMessage mm = MiniMessage.miniMessage();
 
     public static final class VIPShopHolder implements InventoryHolder {
-        private final String menuType; // "MAIN", "CATEGORY", "EQUIPMENT", "AMULETS"
+        private final String menuType; // "MAIN", "CATEGORY", "QUANTITY", "EQUIPMENT", "AMULETS"
         private final String categoryId; // dynamic category ID if menuType is CATEGORY
+        private final ShopItemInfo itemInfo; // item info if menuType is QUANTITY
         
         public VIPShopHolder(String menuType, String categoryId) {
+            this(menuType, categoryId, null);
+        }
+
+        public VIPShopHolder(String menuType, String categoryId, ShopItemInfo itemInfo) {
             this.menuType = menuType;
             this.categoryId = categoryId;
+            this.itemInfo = itemInfo;
         }
         
         public String getMenuType() {
@@ -42,6 +49,10 @@ public final class VIPShopCommand implements CommandExecutor {
         
         public String getCategoryId() {
             return categoryId;
+        }
+
+        public ShopItemInfo getItemInfo() {
+            return itemInfo;
         }
         
         @Override
@@ -57,12 +68,12 @@ public final class VIPShopCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("§cTa komenda moze byc wykonana tylko przez gracza!");
+            sender.sendMessage("§cThis command can only be executed by a player!");
             return true;
         }
 
         if (!player.hasPermission("vipshop.use")) {
-            Component msg = mm.deserialize("<red>Nie masz uprawnień do korzystania ze sklepu!</red>");
+            Component msg = mm.deserialize("<red>You do not have permission to use the shop!</red>");
             player.sendMessage(msg);
             return true;
         }
@@ -71,17 +82,44 @@ public final class VIPShopCommand implements CommandExecutor {
         return true;
     }
 
-    public void openMainMenu(Player player) {
-        Component title = mm.deserialize("<gradient:#4df2f2:#3a7bd5>✦ Kategorie Sklepu ✦</gradient>").decorate(TextDecoration.BOLD);
-        Inventory inv = Bukkit.createInventory(new VIPShopHolder("MAIN", null), 27, title);
+    private ItemStack getPlayerHead(Player player) {
+        ItemStack head = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta meta = (SkullMeta) head.getItemMeta();
+        if (meta != null) {
+            meta.setOwningPlayer(player);
+            meta.displayName(mm.deserialize("<gradient:#ffe066:#f5b041><bold>" + player.getName() + "</bold></gradient>")
+                    .decoration(TextDecoration.ITALIC, false));
+            
+            double balance = 0;
+            if (plugin.getEconomy() != null) {
+                balance = plugin.getEconomy().getBalance(player);
+            }
+            
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(mm.deserialize("<gray>Your Balance: </gray><green>$" + String.format(Locale.US, "%,.2f", balance) + "</green>").decoration(TextDecoration.ITALIC, false));
+            lore.add(mm.deserialize("<gray>Status: </gray><gold>VIP Member</gold>").decoration(TextDecoration.ITALIC, false));
+            meta.lore(lore);
+            head.setItemMeta(meta);
+        }
+        return head;
+    }
 
-        ItemStack filler = createFillerGlass(Material.BLACK_STAINED_GLASS_PANE);
-        for (int i = 0; i < 27; i++) {
+    public void openMainMenu(Player player) {
+        Component title = mm.deserialize("<gradient:#4df2f2:#3a7bd5>✦ Shop Categories ✦</gradient>").decorate(TextDecoration.BOLD);
+        Inventory inv = Bukkit.createInventory(new VIPShopHolder("MAIN", null), 54, title);
+
+        ItemStack filler = createFillerGlass(Material.GRAY_STAINED_GLASS_PANE);
+        for (int i = 0; i < 54; i++) {
             inv.setItem(i, filler);
         }
 
-        // Add 4 Dynamic Category icons (slots 10, 12, 14, 16)
-        int[] slots = {10, 12, 14, 16};
+        // Add Player head in top middle slot (slot 4)
+        inv.setItem(4, getPlayerHead(player));
+
+        // Center row layout slots for categories
+        // We will lay out the dynamic categories in row 3 (slots 20, 21, 22, 23, 24, 25)
+        int[] slots = {19, 20, 21, 22, 23, 24, 25};
         int index = 0;
         for (CategoryInfo cat : plugin.getDynamicShopManager().getCategories()) {
             if (index >= slots.length) break;
@@ -92,7 +130,7 @@ public final class VIPShopCommand implements CommandExecutor {
                 meta.displayName(mm.deserialize(cat.title).decoration(TextDecoration.ITALIC, false));
                 List<Component> lore = new ArrayList<>();
                 lore.add(Component.empty());
-                lore.add(mm.deserialize("<gray>Kliknij, aby otworzyć tę kategorię.</gray>").decoration(TextDecoration.ITALIC, false));
+                lore.add(mm.deserialize("<gray>Click to open this category.</gray>").decoration(TextDecoration.ITALIC, false));
                 meta.lore(lore);
                 meta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ATTRIBUTES);
                 catIcon.setItemMeta(meta);
@@ -101,34 +139,34 @@ public final class VIPShopCommand implements CommandExecutor {
             index++;
         }
 
-        // Add 2 VIP static category icons (slots 21, 23)
-        // Kategoria: Zbroje i Bronie VIP (Slot 21)
+        // Add 2 VIP static category icons in row 4 (slots 30, 32)
+        // Category: Armor & Tools (Slot 30)
         ItemStack equipmentCategory = new ItemStack(Material.DIAMOND_CHESTPLATE);
         ItemMeta eqMeta = equipmentCategory.getItemMeta();
         if (eqMeta != null) {
-            eqMeta.displayName(mm.deserialize("<gradient:#00aaff:#00ffff><bold>Zbroje, Bronie i Narzędzia (VIP)</bold></gradient>").decoration(TextDecoration.ITALIC, false));
+            eqMeta.displayName(mm.deserialize("<gradient:#00aaff:#00ffff><bold>Armor, Weapons & Tools (VIP)</bold></gradient>").decoration(TextDecoration.ITALIC, false));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(mm.deserialize("<gray>Kliknij, aby otworzyć zbrojownię VIP.</gray>").decoration(TextDecoration.ITALIC, false));
+            lore.add(mm.deserialize("<gray>Click to open the VIP armory.</gray>").decoration(TextDecoration.ITALIC, false));
             eqMeta.lore(lore);
             eqMeta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ATTRIBUTES);
             equipmentCategory.setItemMeta(eqMeta);
         }
-        inv.setItem(21, equipmentCategory);
+        inv.setItem(30, equipmentCategory);
 
-        // Kategoria: Magiczne Amulety VIP (Slot 23)
+        // Category: Magic Amulets (Slot 32)
         ItemStack amuletsCategory = new ItemStack(Material.NETHER_STAR);
         ItemMeta amMeta = amuletsCategory.getItemMeta();
         if (amMeta != null) {
-            amMeta.displayName(mm.deserialize("<gradient:#aa00ff:#ff00aa><bold>Magiczne Amulety (VIP)</bold></gradient>").decoration(TextDecoration.ITALIC, false));
+            amMeta.displayName(mm.deserialize("<gradient:#aa00ff:#ff00aa><bold>Magic Amulets (VIP)</bold></gradient>").decoration(TextDecoration.ITALIC, false));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(mm.deserialize("<gray>Kliknij, aby zobaczyć amulety VIP.</gray>").decoration(TextDecoration.ITALIC, false));
+            lore.add(mm.deserialize("<gray>Click to view VIP amulets.</gray>").decoration(TextDecoration.ITALIC, false));
             amMeta.lore(lore);
             amMeta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ATTRIBUTES);
             amuletsCategory.setItemMeta(amMeta);
         }
-        inv.setItem(23, amuletsCategory);
+        inv.setItem(32, amuletsCategory);
 
         player.openInventory(inv);
     }
@@ -149,6 +187,9 @@ public final class VIPShopCommand implements CommandExecutor {
             inv.setItem(i, filler);
         }
 
+        // Add Player head in top middle slot (slot 4)
+        inv.setItem(4, getPlayerHead(player));
+
         // Centered grid slots for items
         int[] itemSlots = {10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43};
         int index = 0;
@@ -158,11 +199,11 @@ public final class VIPShopCommand implements CommandExecutor {
             index++;
         }
 
-        // Back arrow button
+        // Back arrow button in slot 49
         ItemStack back = new ItemStack(Material.ARROW);
         ItemMeta meta = back.getItemMeta();
         if (meta != null) {
-            meta.displayName(mm.deserialize("<red><bold>Wróć do Kategorii</bold></red>").decoration(TextDecoration.ITALIC, false));
+            meta.displayName(mm.deserialize("<red><bold>Go Back</bold></red>").decoration(TextDecoration.ITALIC, false));
             back.setItemMeta(meta);
         }
         inv.setItem(49, back);
@@ -170,12 +211,96 @@ public final class VIPShopCommand implements CommandExecutor {
         player.openInventory(inv);
     }
 
+    public void openQuantitySelectionMenu(Player player, ShopItemInfo item) {
+        String englishName = getEnglishName(item.material);
+        Component title = mm.deserialize("<gradient:#4df2f2:#3a7bd5>Buy/Sell: " + englishName + "</gradient>").decorate(TextDecoration.BOLD);
+        Inventory inv = Bukkit.createInventory(new VIPShopHolder("QUANTITY", item.categoryId, item), 27, title);
+
+        // Fill with border glass
+        ItemStack filler = createFillerGlass(Material.GRAY_STAINED_GLASS_PANE);
+        for (int i = 0; i < 27; i++) {
+            inv.setItem(i, filler);
+        }
+
+        // Player Head at top middle
+        inv.setItem(4, getPlayerHead(player));
+
+        // Center item
+        inv.setItem(13, createShopItem(item));
+
+        double currentBuy = plugin.getDynamicShopManager().getCurrentBuyPrice(item.materialName);
+        double currentSell = plugin.getDynamicShopManager().getCurrentSellPrice(item.materialName);
+
+        // Buy buttons on Left: Buy 1x (slot 10), Buy 16x (slot 11), Buy 64x (slot 12)
+        inv.setItem(10, createTransactionButton(Material.LIME_STAINED_GLASS_PANE, "<green><bold>Buy 1x</bold></green>", currentBuy * 1, "Buy"));
+        inv.setItem(11, createTransactionButton(Material.LIME_STAINED_GLASS, "<green><bold>Buy 16x</bold></green>", currentBuy * 16, "Buy"));
+        inv.setItem(12, createTransactionButton(Material.EMERALD_BLOCK, "<green><bold>Buy 64x (Stack)</bold></green>", currentBuy * 64, "Buy"));
+
+        // Sell buttons on Right: Sell 1x (slot 14), Sell 16x (slot 15), Sell All (slot 16)
+        inv.setItem(14, createTransactionButton(Material.RED_STAINED_GLASS_PANE, "<red><bold>Sell 1x</bold></red>", currentSell * 1, "Sell"));
+        inv.setItem(15, createTransactionButton(Material.RED_STAINED_GLASS, "<red><bold>Sell 16x</bold></red>", currentSell * 16, "Sell"));
+        
+        // Count total matching items in inventory for "Sell All"
+        int totalInInventory = 0;
+        for (ItemStack invItem : player.getInventory().getStorageContents()) {
+            if (invItem != null && invItem.getType() == item.material) {
+                totalInInventory += invItem.getAmount();
+            }
+        }
+        double totalEarnings = currentSell * totalInInventory;
+        
+        ItemStack sellAllButton = new ItemStack(Material.REDSTONE_BLOCK);
+        ItemMeta sellAllMeta = sellAllButton.getItemMeta();
+        if (sellAllMeta != null) {
+            sellAllMeta.displayName(mm.deserialize("<red><bold>Sell All</bold></red>").decoration(TextDecoration.ITALIC, false));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(mm.deserialize("<gray>Items in inventory: </gray><aqua>" + totalInInventory + " pcs</aqua>").decoration(TextDecoration.ITALIC, false));
+            lore.add(mm.deserialize("<gray>Total Earnings: </gray><green>$" + String.format(Locale.US, "%.2f", totalEarnings) + "</green>").decoration(TextDecoration.ITALIC, false));
+            lore.add(Component.empty());
+            lore.add(mm.deserialize("<gray>Click to sell all.</gray>").decoration(TextDecoration.ITALIC, false));
+            sellAllMeta.lore(lore);
+            sellAllMeta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ATTRIBUTES);
+            sellAllButton.setItemMeta(sellAllMeta);
+        }
+        inv.setItem(16, sellAllButton);
+
+        // Back button in slot 22
+        ItemStack back = new ItemStack(Material.ARROW);
+        ItemMeta meta = back.getItemMeta();
+        if (meta != null) {
+            meta.displayName(mm.deserialize("<red><bold>Back to Category</bold></red>").decoration(TextDecoration.ITALIC, false));
+            back.setItemMeta(meta);
+        }
+        inv.setItem(22, back);
+
+        player.openInventory(inv);
+    }
+
+    private ItemStack createTransactionButton(Material mat, String name, double price, String type) {
+        ItemStack item = new ItemStack(mat);
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            meta.displayName(mm.deserialize(name).decoration(TextDecoration.ITALIC, false));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            String actionLabel = type.equals("Buy") ? "Cost" : "Earnings";
+            lore.add(mm.deserialize("<gray>" + actionLabel + ": </gray><green>$" + String.format(Locale.US, "%.2f", price) + "</green>").decoration(TextDecoration.ITALIC, false));
+            lore.add(Component.empty());
+            lore.add(mm.deserialize("<gray>Click to execute transaction.</gray>").decoration(TextDecoration.ITALIC, false));
+            meta.lore(lore);
+            meta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ATTRIBUTES);
+            item.setItemMeta(meta);
+        }
+        return item;
+    }
+
     // ==========================================
     // VIP Shop Submenus (Original static VIP items)
     // ==========================================
 
     public void openEquipmentCategory(Player player) {
-        Component title = mm.deserialize("<gradient:#ffaa00:#ffff55>✦ Zbrojownia VIP ✦</gradient>").decorate(TextDecoration.BOLD);
+        Component title = mm.deserialize("<gradient:#ffaa00:#ffff55>✦ VIP Armory ✦</gradient>").decorate(TextDecoration.BOLD);
         Inventory inv = Bukkit.createInventory(new VIPShopHolder("EQUIPMENT", null), 54, title);
 
         ItemStack filler = createFillerGlass(Material.BLACK_STAINED_GLASS_PANE);
@@ -218,7 +343,7 @@ public final class VIPShopCommand implements CommandExecutor {
         ItemStack back = new ItemStack(Material.ARROW);
         ItemMeta meta = back.getItemMeta();
         if (meta != null) {
-            meta.displayName(mm.deserialize("<red><bold>Wróć do Kategorii</bold></red>").decoration(TextDecoration.ITALIC, false));
+            meta.displayName(mm.deserialize("<red><bold>Go Back</bold></red>").decoration(TextDecoration.ITALIC, false));
             back.setItemMeta(meta);
         }
         inv.setItem(49, back);
@@ -227,7 +352,7 @@ public final class VIPShopCommand implements CommandExecutor {
     }
 
     public void openAmuletsCategory(Player player) {
-        Component title = mm.deserialize("<gradient:#aa00ff:#ff00aa>✦ Amulety VIP ✦</gradient>").decorate(TextDecoration.BOLD);
+        Component title = mm.deserialize("<gradient:#aa00ff:#ff00aa>✦ VIP Amulets ✦</gradient>").decorate(TextDecoration.BOLD);
         Inventory inv = Bukkit.createInventory(new VIPShopHolder("AMULETS", null), 54, title);
 
         ItemStack filler = createFillerGlass(Material.BLACK_STAINED_GLASS_PANE);
@@ -256,7 +381,7 @@ public final class VIPShopCommand implements CommandExecutor {
         ItemStack back = new ItemStack(Material.ARROW);
         ItemMeta meta = back.getItemMeta();
         if (meta != null) {
-            meta.displayName(mm.deserialize("<red><bold>Wróć do Kategorii</bold></red>").decoration(TextDecoration.ITALIC, false));
+            meta.displayName(mm.deserialize("<red><bold>Go Back</bold></red>").decoration(TextDecoration.ITALIC, false));
             back.setItemMeta(meta);
         }
         inv.setItem(49, back);
@@ -294,7 +419,7 @@ public final class VIPShopCommand implements CommandExecutor {
         newLore.add(Component.empty());
 
         double price = plugin.getConfig().getDouble("shop." + id, 10000.0);
-        Component priceComponent = mm.deserialize("<yellow><bold>Cena: $" + String.format(Locale.US, "%,.0f", price) + "</bold></yellow>").decoration(TextDecoration.ITALIC, false);
+        Component priceComponent = mm.deserialize("<yellow><bold>Price: $" + String.format(Locale.US, "%,.0f", price) + "</bold></yellow>").decoration(TextDecoration.ITALIC, false);
         newLore.add(priceComponent);
 
         meta.lore(newLore);
@@ -353,7 +478,7 @@ public final class VIPShopCommand implements CommandExecutor {
         double dropPercent = plugin.getDynamicShopManager().getPriceDropPercent(item.materialName) * 100.0;
         double salesCount = plugin.getDynamicShopManager().getSalesData(item.materialName).salesCount;
 
-        String displayName = getPolishName(item.material);
+        String displayName = getEnglishName(item.material);
         meta.displayName(mm.deserialize("<gradient:#ffe066:#f5b041><bold>" + displayName + "</bold></gradient>")
                 .decoration(TextDecoration.ITALIC, false));
 
@@ -361,31 +486,30 @@ public final class VIPShopCommand implements CommandExecutor {
         lore.add(Component.empty());
         
         // Buy Section
-        lore.add(mm.deserialize("<yellow><b>Kupno:</b></yellow>").decoration(TextDecoration.ITALIC, false));
+        lore.add(mm.deserialize("<yellow><b>Buy:</b></yellow>").decoration(TextDecoration.ITALIC, false));
         lore.add(mm.deserialize(" <gray>• 1x: </gray><green>$" + String.format(Locale.US, "%.2f", currentBuy) + "</green>").decoration(TextDecoration.ITALIC, false));
         lore.add(mm.deserialize(" <gray>• 64x: </gray><green>$" + String.format(Locale.US, "%.2f", currentBuy * 64) + "</green>").decoration(TextDecoration.ITALIC, false));
         lore.add(Component.empty());
 
         // Sell Section
-        lore.add(mm.deserialize("<gold><b>Sprzedaż:</b></gold>").decoration(TextDecoration.ITALIC, false));
+        lore.add(mm.deserialize("<gold><b>Sell:</b></gold>").decoration(TextDecoration.ITALIC, false));
         lore.add(mm.deserialize(" <gray>• 1x: </gray><green>$" + String.format(Locale.US, "%.2f", currentSell) + "</green>").decoration(TextDecoration.ITALIC, false));
         lore.add(mm.deserialize(" <gray>• 64x: </gray><green>$" + String.format(Locale.US, "%.2f", currentSell * 64) + "</green>").decoration(TextDecoration.ITALIC, false));
         lore.add(Component.empty());
 
         // Dynamic pricing status
-        lore.add(mm.deserialize("<blue><b>Popyt rynkowy:</b></blue>").decoration(TextDecoration.ITALIC, false));
-        lore.add(mm.deserialize(" <gray>• Ostatnia sprzedaż: </gray><aqua>" + String.format(Locale.US, "%.1f", salesCount) + " / " + String.format(Locale.US, "%.0f", item.threshold) + " szt.</aqua>").decoration(TextDecoration.ITALIC, false));
+        lore.add(mm.deserialize("<blue><b>Market Demand:</b></blue>").decoration(TextDecoration.ITALIC, false));
+        lore.add(mm.deserialize(" <gray>• Recent Sales: </gray><aqua>" + String.format(Locale.US, "%.1f", salesCount) + " / " + String.format(Locale.US, "%.0f", item.threshold) + " pcs</aqua>").decoration(TextDecoration.ITALIC, false));
         
         if (dropPercent > 0.1) {
-            lore.add(mm.deserialize(" <gray>• Status ceny: </gray><red>-" + String.format(Locale.US, "%.0f", dropPercent) + "% (Nadprodukcja)</red>").decoration(TextDecoration.ITALIC, false));
+            lore.add(mm.deserialize(" <gray>• Price Status: </gray><red>-" + String.format(Locale.US, "%.0f", dropPercent) + "% (Overproduction)</red>").decoration(TextDecoration.ITALIC, false));
         } else {
-            lore.add(mm.deserialize(" <gray>• Status ceny: </gray><green>Stabilna (100%)</green>").decoration(TextDecoration.ITALIC, false));
+            lore.add(mm.deserialize(" <gray>• Price Status: </gray><green>Stable (100%)</green>").decoration(TextDecoration.ITALIC, false));
         }
         
         lore.add(Component.empty());
         lore.add(mm.deserialize("<dark_gray>-------------------------</dark_gray>").decoration(TextDecoration.ITALIC, false));
-        lore.add(mm.deserialize("<yellow>[LPM]</yellow> <gray>Kup 1</gray>  <yellow>[Shift+LPM]</yellow> <gray>Kup 64</gray>").decoration(TextDecoration.ITALIC, false));
-        lore.add(mm.deserialize("<gold>[PPM]</gold> <gray>Sprzedaj 1</gray>  <gold>[Shift+PPM]</gold> <gray>Sprzedaj all</gray>").decoration(TextDecoration.ITALIC, false));
+        lore.add(mm.deserialize("<yellow>[Click]</yellow> <gray>Open Transaction Menu</gray>").decoration(TextDecoration.ITALIC, false));
 
         meta.lore(lore);
         meta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ATTRIBUTES, org.bukkit.inventory.ItemFlag.HIDE_ENCHANTS, org.bukkit.inventory.ItemFlag.HIDE_POTION_EFFECTS);
@@ -403,47 +527,14 @@ public final class VIPShopCommand implements CommandExecutor {
         return glass;
     }
 
-    private String getPolishName(Material material) {
-        switch (material) {
-            case STONE: return "Kamień";
-            case COBBLESTONE: return "Bruk (Cobblestone)";
-            case DIRT: return "Ziemia";
-            case SAND: return "Piasek";
-            case GRAVEL: return "Żwir";
-            case OAK_LOG: return "Dębowe drewno";
-            case SPRUCE_LOG: return "Świerkowe drewno";
-            case BIRCH_LOG: return "Brzozowe drewno";
-            case OAK_PLANKS: return "Dębowe deski";
-            case GLASS: return "Szkło";
-            case SMOOTH_STONE: return "Gładki kamień";
-            case STONE_BRICKS: return "Kamienne cegły";
-            case WHEAT: return "Pszenica";
-            case POTATO: return "Ziemniak";
-            case CARROT: return "Marchewka";
-            case SUGAR_CANE: return "Trzcina cukrowa";
-            case CACTUS: return "Kaktus";
-            case MELON: return "Arbuz";
-            case PUMPKIN: return "Dynia";
-            case APPLE: return "Jabłko";
-            case LEATHER: return "Skóra";
-            case FEATHER: return "Pióro";
-            case ROTTEN_FLESH: return "Zgniłe mięso";
-            case BONE: return "Kość";
-            case GUNPOWDER: return "Proch strzelniczy";
-            case STRING: return "Nić";
-            case SPIDER_EYE: return "Oko pająka";
-            case ENDER_PEARL: return "Perła Endu";
-            case SLIME_BALL: return "Kula szlamu";
-            case BLAZE_ROD: return "Płomienna różdżka";
-            case COAL: return "Węgiel";
-            case COPPER_INGOT: return "Sztabka miedzi";
-            case IRON_INGOT: return "Sztabka żelaza";
-            case GOLD_INGOT: return "Sztabka złota";
-            case REDSTONE: return "Czerwony proszek";
-            case LAPIS_LAZULI: return "Lapis Lazuli";
-            case EMERALD: return "Szmaragd";
-            case DIAMOND: return "Diament";
-            default: return material.name().replace("_", " ").toLowerCase();
+    private String getEnglishName(Material material) {
+        String name = material.name().replace("_", " ").toLowerCase();
+        String[] words = name.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (String w : words) {
+            if (w.isEmpty()) continue;
+            sb.append(Character.toUpperCase(w.charAt(0))).append(w.substring(1)).append(" ");
         }
+        return sb.toString().trim();
     }
 }

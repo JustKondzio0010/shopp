@@ -46,12 +46,11 @@ public final class VIPShopListener implements Listener {
         String menuType = holder.getMenuType();
 
         // Security check: is player frozen by economy auditor?
-        // (Applies to all shop menus to prevent frozen player exploitation)
         if (plugin.getEconomyAuditor().isFrozen(player.getUniqueId())) {
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
             player.showTitle(Title.title(
-                mm.deserialize("<red><bold>ZABLOKOWANE!</bold></red>"),
-                mm.deserialize("<gray>Twoje konto jest zamrożone przez Audytora.</gray>"),
+                mm.deserialize("<red><bold>LOCKED!</bold></red>"),
+                mm.deserialize("<gray>Your account is frozen by the Auditor.</gray>"),
                 Title.Times.times(Duration.ofMillis(500), Duration.ofMillis(2000), Duration.ofMillis(500))
             ));
             player.closeInventory();
@@ -61,7 +60,7 @@ public final class VIPShopListener implements Listener {
         // Vault check
         if (plugin.getEconomy() == null) {
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
-            player.sendMessage(mm.deserialize("<red>Błąd: Brak systemu ekonomii Vault na serwerze!</red>"));
+            player.sendMessage(mm.deserialize("<red>Error: Vault economy system not found on the server!</red>"));
             return;
         }
 
@@ -71,10 +70,13 @@ public final class VIPShopListener implements Listener {
         if (menuType.equals("MAIN")) {
             List<CategoryInfo> list = new ArrayList<>(plugin.getDynamicShopManager().getCategories());
             CategoryInfo selected = null;
-            if (slot == 10 && list.size() > 0) selected = list.get(0);
-            else if (slot == 12 && list.size() > 1) selected = list.get(1);
-            else if (slot == 14 && list.size() > 2) selected = list.get(2);
-            else if (slot == 16 && list.size() > 3) selected = list.get(3);
+            int[] slots = {19, 20, 21, 22, 23, 24, 25};
+            for (int i = 0; i < slots.length; i++) {
+                if (slot == slots[i] && list.size() > i) {
+                    selected = list.get(i);
+                    break;
+                }
+            }
 
             if (selected != null) {
                 player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
@@ -83,10 +85,10 @@ public final class VIPShopListener implements Listener {
             }
 
             // VIP submenus
-            if (slot == 21) {
+            if (slot == 30) {
                 player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
                 new VIPShopCommand(plugin).openEquipmentCategory(player);
-            } else if (slot == 23) {
+            } else if (slot == 32) {
                 player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
                 new VIPShopCommand(plugin).openAmuletsCategory(player);
             }
@@ -124,8 +126,8 @@ public final class VIPShopListener implements Listener {
             if (!plugin.getEconomy().has(player, price)) {
                 player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                 player.showTitle(Title.title(
-                    mm.deserialize("<red><bold>BRAK ŚRODKÓW!</bold></red>"),
-                    mm.deserialize("<gray>Potrzebujesz <yellow>$" + String.format(Locale.US, "%,.0f", price) + "</yellow></gray>"),
+                    mm.deserialize("<red><bold>INSUFFICIENT FUNDS!</bold></red>"),
+                    mm.deserialize("<gray>You need <yellow>$" + String.format(Locale.US, "%,.0f", price) + "</yellow></gray>"),
                     Title.Times.times(Duration.ofMillis(500), Duration.ofMillis(2000), Duration.ofMillis(500))
                 ));
                 return;
@@ -149,8 +151,8 @@ public final class VIPShopListener implements Listener {
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
             
             player.showTitle(Title.title(
-                mm.deserialize("<green><bold>ZAKUPIONO!</bold></green>"),
-                mm.deserialize("<gray>Pomyślnie kupiono przedmiot VIP.</gray>"),
+                mm.deserialize("<green><bold>PURCHASED!</bold></green>"),
+                mm.deserialize("<gray>Successfully purchased VIP item.</gray>"),
                 Title.Times.times(Duration.ofMillis(500), Duration.ofMillis(2000), Duration.ofMillis(500))
             ));
             return;
@@ -178,18 +180,39 @@ public final class VIPShopListener implements Listener {
                 return;
             }
 
-            ClickType clickType = event.getClick();
+            // Instead of buying/selling immediately, open the Quantity Selection GUI
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
+            new VIPShopCommand(plugin).openQuantitySelectionMenu(player, itemInfo);
+            return;
+        }
 
-            // Handle Buying (Left Click / Shift Left Click)
-            if (clickType == ClickType.LEFT || clickType == ClickType.SHIFT_LEFT) {
-                int quantity = (clickType == ClickType.SHIFT_LEFT) ? 64 : 1;
+        // ==========================================
+        // 4. QUANTITY SELECTION MENU
+        // ==========================================
+        if (menuType.equals("QUANTITY")) {
+            // Back button
+            if (slot == 22) {
+                player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
+                new VIPShopCommand(plugin).openCategoryMenu(player, holder.getCategoryId());
+                return;
+            }
+
+            ShopItemInfo itemInfo = holder.getItemInfo();
+            if (itemInfo == null) return;
+
+            // Handle Buying: slots 10 (1x), 11 (16x), 12 (64x)
+            if (slot == 10 || slot == 11 || slot == 12) {
+                int quantity = 1;
+                if (slot == 11) quantity = 16;
+                else if (slot == 12) quantity = 64;
+
                 double unitBuyPrice = plugin.getDynamicShopManager().getCurrentBuyPrice(itemInfo.materialName);
                 double totalCost = unitBuyPrice * quantity;
 
                 // Check money balance
                 if (!plugin.getEconomy().has(player, totalCost)) {
                     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
-                    player.sendActionBar(mm.deserialize("<red>Brak środków! Potrzebujesz $" + String.format(Locale.US, "%.2f", totalCost) + "</red>"));
+                    player.sendMessage(mm.deserialize("<red>Insufficient funds! You need $" + String.format(Locale.US, "%.2f", totalCost) + "</red>"));
                     return;
                 }
 
@@ -197,14 +220,14 @@ public final class VIPShopListener implements Listener {
                 if (player.getInventory().firstEmpty() == -1) {
                     boolean hasSpace = false;
                     for (ItemStack item : player.getInventory().getStorageContents()) {
-                        if (item != null && item.getType() == itemInfo.material && item.getAmount() < item.getMaxStackSize()) {
+                        if (item != null && item.getType() == itemInfo.material && item.getAmount() + quantity <= item.getMaxStackSize()) {
                             hasSpace = true;
                             break;
                         }
                     }
                     if (!hasSpace) {
                         player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
-                        player.sendActionBar(mm.deserialize("<red>Brak wolnego miejsca w ekwipunku!</red>"));
+                        player.sendMessage(mm.deserialize("<red>Your inventory is full!</red>"));
                         return;
                     }
                 }
@@ -213,14 +236,15 @@ public final class VIPShopListener implements Listener {
                 plugin.getEconomy().withdrawPlayer(player, totalCost);
                 player.getInventory().addItem(new ItemStack(itemInfo.material, quantity));
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.8f, 1.2f);
-                player.sendActionBar(mm.deserialize("<green>Zakupiono " + quantity + " szt. za $" + String.format(Locale.US, "%.2f", totalCost) + "</green>"));
+                player.sendMessage(mm.deserialize("<green>Successfully purchased " + quantity + "x for $" + String.format(Locale.US, "%.2f", totalCost) + "</green>"));
 
-                // Refresh GUI
-                new VIPShopCommand(plugin).openCategoryMenu(player, holder.getCategoryId());
+                // Refresh GUI to show updated balance and sell-all price details
+                new VIPShopCommand(plugin).openQuantitySelectionMenu(player, itemInfo);
+                return;
             }
 
-            // Handle Selling (Right Click / Shift Right Click)
-            else if (clickType == ClickType.RIGHT || clickType == ClickType.SHIFT_RIGHT) {
+            // Handle Selling: slots 14 (1x), 15 (16x), 16 (Sell All)
+            if (slot == 14 || slot == 15 || slot == 16) {
                 // Count how many items of this type the player has
                 int playerAmount = 0;
                 for (ItemStack item : player.getInventory().getStorageContents()) {
@@ -231,11 +255,17 @@ public final class VIPShopListener implements Listener {
 
                 if (playerAmount <= 0) {
                     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
-                    player.sendActionBar(mm.deserialize("<red>Nie posiadasz tego przedmiotu w ekwipunku!</red>"));
+                    player.sendMessage(mm.deserialize("<red>You do not have any of this item in your inventory!</red>"));
                     return;
                 }
 
-                int quantity = (clickType == ClickType.SHIFT_RIGHT) ? playerAmount : 1;
+                int quantity = 1;
+                if (slot == 15) quantity = 16;
+                else if (slot == 16) quantity = playerAmount;
+
+                // Cap target quantity to player amount
+                quantity = Math.min(quantity, playerAmount);
+
                 double unitSellPrice = plugin.getDynamicShopManager().getCurrentSellPrice(itemInfo.materialName);
                 double totalEarnings = unitSellPrice * quantity;
 
@@ -258,17 +288,17 @@ public final class VIPShopListener implements Listener {
                 }
                 player.getInventory().setStorageContents(contents);
 
-                // Complete sell transaction & register to increase supply (dropping price)
+                // Complete sell transaction & register sale
                 plugin.getEconomy().depositPlayer(player, totalEarnings);
                 plugin.getDynamicShopManager().registerSale(itemInfo.materialName, quantity);
 
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 0.8f);
                 
                 double newPrice = plugin.getDynamicShopManager().getCurrentSellPrice(itemInfo.materialName);
-                player.sendActionBar(mm.deserialize("<gold>Sprzedano " + quantity + " szt. za $" + String.format(Locale.US, "%.2f", totalEarnings) + " <gray>(Nowa cena: $" + String.format(Locale.US, "%.2f", newPrice) + "/szt.)</gray></gold>"));
+                player.sendMessage(mm.deserialize("<gold>Sold " + quantity + "x for $" + String.format(Locale.US, "%.2f", totalEarnings) + " <gray>(New unit price: $" + String.format(Locale.US, "%.2f", newPrice) + ")</gray></gold>"));
 
-                // Refresh GUI
-                new VIPShopCommand(plugin).openCategoryMenu(player, holder.getCategoryId());
+                // Refresh GUI to show updated balance and counts
+                new VIPShopCommand(plugin).openQuantitySelectionMenu(player, itemInfo);
             }
         }
     }
