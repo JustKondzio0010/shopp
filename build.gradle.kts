@@ -27,5 +27,5 @@ tasks.withType<JavaCompile> {
 }
 
 tasks.jar {
-    archiveFileName.set("VipShop-1.0.0.jar")
+    archiveFileName.set("Shop-1.0.0.jar")
 }

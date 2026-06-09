@@ -51,7 +51,7 @@ public final class VipShop extends JavaPlugin {
         economyAuditor.startAuditing();
 
         // 5. Register Commands
-        PluginCommand shopCmd = getCommand("sklep_vip");
+        PluginCommand shopCmd = getCommand("shop");
         if (shopCmd != null) {
             vipShopCommand = new VIPShopCommand(this);
             shopCmd.setExecutor(vipShopCommand);

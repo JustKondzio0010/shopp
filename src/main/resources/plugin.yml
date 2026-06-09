@@ -1,4 +1,4 @@
-name: VipShop
+name: Shop
 version: 1.0.0
 main: pl.konrad.vipshop.VipShop
 api-version: '1.20'
@@ -6,10 +6,10 @@ authors: [konrad]
 description: Advanced Economy Auditor and Custom Items VIP Shop.
 depend: [Vault]
 commands:
-  sklep_vip:
-    description: Otwiera sklep z customowymi przedmiotami VIP.
-    aliases: [sklepvip, vipshop]
-    usage: /sklep_vip
+  shop:
+    description: Otwiera sklep.
+    aliases: [sklep_vip, sklepvip, vipshop]
+    usage: /shop
   unfreeze:
     description: Odmraza zablokowanego gracza przez Audytora.
     usage: /unfreeze <nick>
