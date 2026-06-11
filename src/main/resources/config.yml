@@ -1,365 +1,80 @@
-# ==========================================
-# Shop Config (Version 26.1.2)
-# ==========================================
+# ReputationPlugin Configuration
+# All messages support MiniMessage formatting.
 
-# Configuration for the Economy Auditor (Anti-Dupe & Anti-Cheat)
-auditor:
-  enabled: true
-  # Wealth spike settings
-  wealth-spike-threshold: 100000.0  # Max money a player can gain in X minutes
-  wealth-spike-time-minutes: 5      # Audit window size in minutes
+settings:
+  # Enable adding the reputation prefix to player chat
+  enable-chat-prefix: true
   
-  # Item drop audit settings
-  drop-valuable-threshold: 64       # Max valuable items dropped in X minutes
-  drop-valuable-time-minutes: 1     # Audit window size in minutes
+  # Enable adding the reputation prefix to player name in the TAB list
+  enable-tab-prefix: true
+
+  # Enable adding the reputation prefix to player name above their head (nametag)
+  enable-nametag-prefix: true
   
-  # List of materials monitored for drop counts
-  valuable-materials:
-    - DIAMOND
-    - DIAMOND_BLOCK
-    - NETHERITE_INGOT
-    - NETHERITE_BLOCK
-    - GOLD_INGOT
-    - GOLD_BLOCK
-    - EMERALD
-    - EMERALD_BLOCK
-    - BEACON
-    - SHULKER_BOX
+  # Enable reputation penalty on killing another player
+  enable-kill-penalty: true
+  kill-penalty: 0.2
 
-# ==========================================
-# Dynamic Pricing Economy Shop Configuration
-# ==========================================
-dynamic-shop:
-  # Dynamic pricing parameters
-  pricing:
-    min-price-drop: 0.20        # Price drops by at least 20% once limit is crossed (0.20)
-    max-price-drop: 0.60        # Price drops by at most 60% due to extreme supply (0.60)
-    decay-rate-per-minute: 0.98 # Every minute, sales count decays by 2% (multiplied by 0.98)
-    min-sales-to-drop: 64       # First stack (64 items) has no price drop (grace limit)
+  # Prevent voting for players sharing the same IP address
+  prevent-same-ip-voting: true
+  
+  # Prevent voting if another account from the voter's IP has already voted for the target
+  prevent-multi-account-voting: true
 
-  # Categorized shop items
-  categories:
-    blocks:
-      id: "blocks"
-      title: "<gradient:#55ff55:#00aa00><bold>✦ Building Blocks ✦</bold></gradient>"
-      icon: "BRICKS"
-      items:
-        # Basic Dirt & Stone
-        STONE:
-          base-buy: 1.5
-          base-sell: 0.12
-          threshold: 3000
-        COBBLESTONE:
-          base-buy: 1.0
-          base-sell: 0.06
-          threshold: 5000
-        DIRT:
-          base-buy: 1.0
-          base-sell: 0.05
-          threshold: 4000
-        GRASS_BLOCK:
-          base-buy: 3.0
-          base-sell: 0.25
-          threshold: 1000
-        SAND:
-          base-buy: 1.5
-          base-sell: 0.10
-          threshold: 3000
-        GRAVEL:
-          base-buy: 1.2
-          base-sell: 0.08
-          threshold: 3000
-        GLASS:
-          base-buy: 2.0
-          base-sell: 0.15
-          threshold: 2000
-        SMOOTH_STONE:
-          base-buy: 2.5
-          base-sell: 0.20
-          threshold: 2000
-        STONE_BRICKS:
-          base-buy: 2.0
-          base-sell: 0.16
-          threshold: 2500
-        CLAY:
-          base-buy: 3.0
-          base-sell: 0.24
-          threshold: 1500
-        TERRACOTTA:
-          base-buy: 2.5
-          base-sell: 0.20
-          threshold: 2000
-          
-        # Wood Logs
-        OAK_LOG:
-          base-buy: 4.0
-          base-sell: 0.50
-          threshold: 1500
-        SPRUCE_LOG:
-          base-buy: 4.0
-          base-sell: 0.50
-          threshold: 1500
-        BIRCH_LOG:
-          base-buy: 4.0
-          base-sell: 0.50
-          threshold: 1500
-        JUNGLE_LOG:
-          base-buy: 4.5
-          base-sell: 0.55
-          threshold: 1200
-        DARK_OAK_LOG:
-          base-buy: 4.5
-          base-sell: 0.55
-          threshold: 1200
-        CHERRY_LOG:
-          base-buy: 5.0
-          base-sell: 0.60
-          threshold: 1000
-          
-        # Planks
-        OAK_PLANKS:
-          base-buy: 1.0
-          base-sell: 0.12
-          threshold: 4000
-        SPRUCE_PLANKS:
-          base-buy: 1.0
-          base-sell: 0.12
-          threshold: 4000
-        BIRCH_PLANKS:
-          base-buy: 1.0
-          base-sell: 0.12
-          threshold: 4000
-        JUNGLE_PLANKS:
-          base-buy: 1.1
-          base-sell: 0.13
-          threshold: 3500
-        DARK_OAK_PLANKS:
-          base-buy: 1.1
-          base-sell: 0.13
-          threshold: 3500
-        CHERRY_PLANKS:
-          base-buy: 1.2
-          base-sell: 0.15
-          threshold: 3000
-          
-        # Sandstone & Nether
-        SANDSTONE:
-          base-buy: 2.0
-          base-sell: 0.16
-          threshold: 2000
-        RED_SANDSTONE:
-          base-buy: 2.5
-          base-sell: 0.20
-          threshold: 1500
-        NETHERRACK:
-          base-buy: 0.8
-          base-sell: 0.04
-          threshold: 6000
-        SOUL_SAND:
-          base-buy: 3.0
-          base-sell: 0.25
-          threshold: 1200
-        GLOWSTONE:
-          base-buy: 12.0
-          base-sell: 1.00
-          threshold: 800
-        SEA_LANTERN:
-          base-buy: 16.0
-          base-sell: 1.30
-          threshold: 600
-        OBSIDIAN:
-          base-buy: 25.0
-          base-sell: 2.00
-          threshold: 500
+  # Worlds where killing players does not deduct reputation
+  kill-penalty-disabled-worlds:
+    - "pvp_world"
 
-    redstone:
-      id: "redstone"
-      title: "<gradient:#ff3333:#990000><bold>✦ Redstone & Tech ✦</bold></gradient>"
-      icon: "REDSTONE"
-      items:
-        REDSTONE:
-          base-buy: 3.0
-          base-sell: 0.25
-          threshold: 2500
-        REDSTONE_BLOCK:
-          base-buy: 27.0
-          base-sell: 2.25
-          threshold: 800
-        REDSTONE_TORCH:
-          base-buy: 2.0
-          base-sell: 0.15
-          threshold: 1500
-        REPEATER:
-          base-buy: 10.0
-          base-sell: 0.80
-          threshold: 800
-        COMPARATOR:
-          base-buy: 15.0
-          base-sell: 1.20
-          threshold: 600
-        PISTON:
-          base-buy: 12.0
-          base-sell: 0.90
-          threshold: 1000
-        STICKY_PISTON:
-          base-buy: 20.0
-          base-sell: 1.50
-          threshold: 800
-        OBSERVER:
-          base-buy: 18.0
-          base-sell: 1.40
-          threshold: 800
-        HOPPER:
-          base-buy: 60.0
-          base-sell: 5.00
-          threshold: 400
-        DISPENSER:
-          base-buy: 15.0
-          base-sell: 1.10
-          threshold: 600
-        DROPPER:
-          base-buy: 8.0
-          base-sell: 0.60
-          threshold: 800
-        LEVER:
-          base-buy: 1.0
-          base-sell: 0.05
-          threshold: 2000
-        TARGET:
-          base-buy: 4.0
-          base-sell: 0.30
-          threshold: 800
-        REDSTONE_LAMP:
-          base-buy: 20.0
-          base-sell: 1.60
-          threshold: 500
-        NOTE_BLOCK:
-          base-buy: 12.0
-          base-sell: 0.90
-          threshold: 600
-        TRIPWIRE_HOOK:
-          base-buy: 4.0
-          base-sell: 0.30
-          threshold: 1000
-        DAYLIGHT_DETECTOR:
-          base-buy: 25.0
-          base-sell: 2.00
-          threshold: 400
+  # WorldGuard regions where killing players does not deduct reputation (requires WorldGuard)
+  kill-penalty-disabled-regions:
+    - "pvp_arena"
 
-    farming:
-      id: "farming"
-      title: "<gradient:#ffff55:#ffaa00><bold>✦ Agriculture & Food ✦</bold></gradient>"
-      icon: "HAY_BLOCK"
-      items:
-        WHEAT:
-          base-buy: 1.5
-          base-sell: 0.15
-          threshold: 2000
-        POTATO:
-          base-buy: 1.0
-          base-sell: 0.10
-          threshold: 3000
-        CARROT:
-          base-buy: 1.0
-          base-sell: 0.10
-          threshold: 3000
-        SUGAR_CANE:
-          base-buy: 2.0
-          base-sell: 0.20
-          threshold: 2000
-        CACTUS:
-          base-buy: 1.5
-          base-sell: 0.12
-          threshold: 2000
-        MELON:
-          base-buy: 4.0
-          base-sell: 0.30
-          threshold: 1500
-        PUMPKIN:
-          base-buy: 3.0
-          base-sell: 0.25
-          threshold: 1200
-        APPLE:
-          base-buy: 5.0
-          base-sell: 0.50
-          threshold: 800
-        LEATHER:
-          base-buy: 8.0
-          base-sell: 0.80
-          threshold: 600
-        FEATHER:
-          base-buy: 1.5
-          base-sell: 0.12
-          threshold: 2000
+  # Format for the prefix. %heart% is replaced by the emoji, %score_int% by the rounded reputation
+  prefix-format: "<red>[%heart% %score_int%] </red>"
 
-    drops:
-      id: "drops"
-      title: "<gradient:#ff5555:#aa0000><bold>✦ Mob Drops ✦</bold></gradient>"
-      icon: "BONE"
-      items:
-        ROTTEN_FLESH:
-          base-buy: 1.0
-          base-sell: 0.08
-          threshold: 4000
-        BONE:
-          base-buy: 2.5
-          base-sell: 0.22
-          threshold: 2500
-        GUNPOWDER:
-          base-buy: 10.0
-          base-sell: 0.90
-          threshold: 1200
-        STRING:
-          base-buy: 2.0
-          base-sell: 0.16
-          threshold: 2500
-        SPIDER_EYE:
-          base-buy: 4.0
-          base-sell: 0.35
-          threshold: 1200
-        ENDER_PEARL:
-          base-buy: 20.0
-          base-sell: 1.50
-          threshold: 800
-        SLIME_BALL:
-          base-buy: 15.0
-          base-sell: 1.20
-          threshold: 800
-        BLAZE_ROD:
-          base-buy: 25.0
-          base-sell: 2.00
-          threshold: 600
+# Mapping of reputation level (rounded 1-10) to the corresponding heart emoji
+hearts:
+  1: "\uE001"
+  2: "\uE002"
+  3: "\uE003"
+  4: "\uE004"
+  5: "\uE005"
+  6: "\uE006"
+  7: "\uE007"
+  8: "\uE008"
+  9: "\uE009"
+  10: "\uE00A"
 
-    minerals:
-      id: "minerals"
-      title: "<gradient:#55ffff:#00aaaa><bold>✦ Ore & Minerals ✦</bold></gradient>"
-      icon: "DIAMOND"
-      items:
-        COAL:
-          base-buy: 4.0
-          base-sell: 0.35
-          threshold: 2500
-        COPPER_INGOT:
-          base-buy: 2.5
-          base-sell: 0.18
-          threshold: 3000
-        IRON_INGOT:
-          base-buy: 12.0
-          base-sell: 1.00
-          threshold: 2000
-        GOLD_INGOT:
-          base-buy: 24.0
-          base-sell: 2.00
-          threshold: 1200
-        LAPIS_LAZULI:
-          base-buy: 5.0
-          base-sell: 0.45
-          threshold: 2000
-        EMERALD:
-          base-buy: 40.0
-          base-sell: 3.50
-          threshold: 800
-        DIAMOND:
-          base-buy: 120.0
-          base-sell: 10.00
-          threshold: 500
+messages:
+  prefix: "<gold>[Reputation]</gold> "
+  no-permission: "<red>You do not have permission to execute this command.</red>"
+  only-players: "<red>Only players can execute this command.</red>"
+  player-not-found: "<red>Player <yellow>%player%</yellow> was not found or has never played before.</red>"
+  cannot-rate-self: "<red>You cannot rate your own reputation!</red>"
+  cannot-rate-same-ip: "<red>You cannot rate a player with the same IP address!</red>"
+  ip-already-voted: "<red>Someone from your IP address has already rated this player!</red>"
+  
+  vote-plus-success: "<green>You gave positive reputation (+0.5) to <yellow>%player%</yellow>!</green>"
+  vote-minus-success: "<red>You gave negative reputation (-0.5) to <yellow>%player%</yellow>!</red>"
+  
+  already-voted-plus: "<red>You have already given positive reputation to <yellow>%player%</yellow>.</red>"
+  already-voted-minus: "<red>You have already given negative reputation to <yellow>%player%</yellow>.</red>"
+  
+  kill-penalty: "<red>You lost <yellow>%penalty%</yellow> reputation for killing player <yellow>%victim%</yellow>!</red>"
+  
+  admin-set-success: "<green>Successfully set <yellow>%player%</yellow>'s reputation to <yellow>%score%</yellow>.</red>"
+  admin-set-usage: "<red>Usage: /rep set <player> <1-10></red>"
+  
+  check-format:
+    - "<gold>=============== <yellow>%player%'s Reputation</yellow> ===============</gold>"
+    - "<gray>Score: </gray>%heart% <yellow>%score%</yellow> <gray>(Rounded: %score_int%)</gray>"
+    - "<gray>Positive votes (+0.5): </gray><green>%pos_votes%</green>"
+    - "<gray>Negative votes (-0.5): </gray><red>%neg_votes%</red>"
+    - "<gold>===================================================</gold>"
+
+  help:
+    - "<gold>=== <yellow>Reputation Commands</yellow> ===</gold>"
+    - "<yellow>/rep+ <player></yellow> <gray>- Give positive reputation (+0.5)</gray>"
+    - "<yellow>/rep- <player></yellow> <gray>- Give negative reputation (-0.5)</gray>"
+    - "<yellow>/rep check <player></yellow> <gray>- View detailed reputation statistics</gray>"
+    - "<red>/rep set <player> <1-10></red> <gray>- (Admin) Set reputation score</gray>"

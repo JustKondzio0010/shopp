@@ -1,23 +1,25 @@
-name: Shop
-version: 1.0.0
-main: pl.konrad.vipshop.VipShop
-api-version: '1.20'
-authors: [konrad]
-description: Advanced Economy Auditor and Custom Items VIP Shop.
-depend: [Vault]
+name: ReputationPlugin
+version: '1.0.0'
+main: pl.lukas.reputation.ReputationPlugin
+api-version: '1.21'
+description: Zaawansowany system reputacji graczy dla serwera Paper.
+author: Lukas
+
 commands:
-  shop:
-    description: Otwiera sklep.
-    aliases: [sklep_vip, sklepvip, vipshop]
-    usage: /shop
-  unfreeze:
-    description: Odmraza zablokowanego gracza przez Audytora.
-    usage: /unfreeze <nick>
-    permission: vipshop.admin.unfreeze
+  reputation:
+    description: Main command of the reputation system.
+    usage: /reputation [check/set/reload]
+    aliases: [rep]
+  rep+:
+    description: Give positive reputation (+0.5) to a player.
+    usage: /rep+ <player>
+    aliases: [rep+give]
+  rep-:
+    description: Give negative reputation (-0.5) to a player.
+    usage: /rep- <player>
+    aliases: [rep-give]
+
 permissions:
-  vipshop.use:
-    description: Zezwala na użycie sklepu VIP.
-    default: true
-  vipshop.admin.alerts:
-    description: Zezwala na otrzymywanie alertów o anomaliach ekonomicznych.
+  reputation.admin:
+    description: Pozwala na korzystanie z komend administratora systemu reputacji.
     default: op
