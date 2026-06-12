@@ -1,25 +1,20 @@
-name: ReputationPlugin
+name: LegitCheck
 version: '1.0.0'
-main: pl.lukas.reputation.ReputationPlugin
+main: pl.lukas.legitcheck.LegitCheckPlugin
 api-version: '1.21'
-description: Zaawansowany system reputacji graczy dla serwera Paper.
+description: A plugin to check players for cheats with automatic freezes, custom chat, and GUI actions.
 author: Lukas
 
 commands:
-  reputation:
-    description: Main command of the reputation system.
-    usage: /reputation [check/set/reload]
-    aliases: [rep]
-  rep+:
-    description: Give positive reputation (+0.5) to a player.
-    usage: /rep+ <player>
-    aliases: [rep+give]
-  rep-:
-    description: Give negative reputation (-0.5) to a player.
-    usage: /rep- <player>
-    aliases: [rep-give]
+  check:
+    description: Main command to check players.
+    usage: /check <player|setloc|clean|reload>
+    aliases: [sprawdz]
 
 permissions:
-  reputation.admin:
-    description: Pozwala na korzystanie z komend administratora systemu reputacji.
+  legitcheck.use:
+    description: Allows staff to use the check command and open the GUI.
+    default: op
+  legitcheck.notify:
+    description: Allows staff to see chat messages from players being checked.
     default: op

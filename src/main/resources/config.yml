@@ -1,80 +1,11 @@
-# ReputationPlugin Configuration
-# All messages support MiniMessage formatting.
+# LegitCheck Configuration
 
-settings:
-  # Enable adding the reputation prefix to player chat
-  enable-chat-prefix: true
-  
-  # Enable adding the reputation prefix to player name in the TAB list
-  enable-tab-prefix: true
-
-  # Enable adding the reputation prefix to player name above their head (nametag)
-  enable-nametag-prefix: true
-  
-  # Enable reputation penalty on killing another player
-  enable-kill-penalty: true
-  kill-penalty: 0.2
-
-  # Prevent voting for players sharing the same IP address
-  prevent-same-ip-voting: true
-  
-  # Prevent voting if another account from the voter's IP has already voted for the target
-  prevent-multi-account-voting: true
-
-  # Worlds where killing players does not deduct reputation
-  kill-penalty-disabled-worlds:
-    - "pvp_world"
-
-  # WorldGuard regions where killing players does not deduct reputation (requires WorldGuard)
-  kill-penalty-disabled-regions:
-    - "pvp_arena"
-
-  # Format for the prefix. %heart% is replaced by the emoji, %score_int% by the rounded reputation
-  prefix-format: "<red>[%heart% %score_int%] </red>"
-
-# Mapping of reputation level (rounded 1-10) to the corresponding heart emoji
-hearts:
-  1: "\uE001"
-  2: "\uE002"
-  3: "\uE003"
-  4: "\uE004"
-  5: "\uE005"
-  6: "\uE006"
-  7: "\uE007"
-  8: "\uE008"
-  9: "\uE009"
-  10: "\uE00A"
-
-messages:
-  prefix: "<gold>[Reputation]</gold> "
-  no-permission: "<red>You do not have permission to execute this command.</red>"
-  only-players: "<red>Only players can execute this command.</red>"
-  player-not-found: "<red>Player <yellow>%player%</yellow> was not found or has never played before.</red>"
-  cannot-rate-self: "<red>You cannot rate your own reputation!</red>"
-  cannot-rate-same-ip: "<red>You cannot rate a player with the same IP address!</red>"
-  ip-already-voted: "<red>Someone from your IP address has already rated this player!</red>"
-  
-  vote-plus-success: "<green>You gave positive reputation (+0.5) to <yellow>%player%</yellow>!</green>"
-  vote-minus-success: "<red>You gave negative reputation (-0.5) to <yellow>%player%</yellow>!</red>"
-  
-  already-voted-plus: "<red>You have already given positive reputation to <yellow>%player%</yellow>.</red>"
-  already-voted-minus: "<red>You have already given negative reputation to <yellow>%player%</yellow>.</red>"
-  
-  kill-penalty: "<red>You lost <yellow>%penalty%</yellow> reputation for killing player <yellow>%victim%</yellow>!</red>"
-  
-  admin-set-success: "<green>Successfully set <yellow>%player%</yellow>'s reputation to <yellow>%score%</yellow>.</red>"
-  admin-set-usage: "<red>Usage: /rep set <player> <1-10></red>"
-  
-  check-format:
-    - "<gold>=============== <yellow>%player%'s Reputation</yellow> ===============</gold>"
-    - "<gray>Score: </gray>%heart% <yellow>%score%</yellow> <gray>(Rounded: %score_int%)</gray>"
-    - "<gray>Positive votes (+0.5): </gray><green>%pos_votes%</green>"
-    - "<gray>Negative votes (-0.5): </gray><red>%neg_votes%</red>"
-    - "<gold>===================================================</gold>"
-
-  help:
-    - "<gold>=== <yellow>Reputation Commands</yellow> ===</gold>"
-    - "<yellow>/rep+ <player></yellow> <gray>- Give positive reputation (+0.5)</gray>"
-    - "<yellow>/rep- <player></yellow> <gray>- Give negative reputation (-0.5)</gray>"
-    - "<yellow>/rep check <player></yellow> <gray>- View detailed reputation statistics</gray>"
-    - "<red>/rep set <player> <1-10></red> <gray>- (Admin) Set reputation score</gray>"
+# The location where players are teleported when they are checked.
+# This will be saved automatically when you set it in-game using the command.
+check-location:
+  world: ""
+  x: 0.0
+  y: 0.0
+  z: 0.0
+  yaw: 0.0
+  pitch: 0.0
