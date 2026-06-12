@@ -1,9 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "item/gold_nugget"
-  },
-  "overrides": [
-    { "predicate": { "custom_model_data": 2005 }, "model": "custom/amulets/amulet_gold_vein" }
-  ]
-}

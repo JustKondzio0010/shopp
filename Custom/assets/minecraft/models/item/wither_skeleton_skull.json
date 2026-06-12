@@ -1,9 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "item/wither_skeleton_skull"
-  },
-  "overrides": [
-    { "predicate": { "custom_model_data": 2009 }, "model": "custom/amulets/amulet_necromancer" }
-  ]
-}

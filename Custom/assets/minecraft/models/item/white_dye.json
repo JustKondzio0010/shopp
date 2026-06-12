@@ -1,9 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "item/white_dye"
-  },
-  "overrides": [
-    { "predicate": { "custom_model_data": 2004 }, "model": "custom/amulets/amulet_seismic" }
-  ]
-}

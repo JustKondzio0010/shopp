@@ -1,9 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "item/feather"
-  },
-  "overrides": [
-    { "predicate": { "custom_model_data": 2006 }, "model": "custom/amulets/amulet_wind" }
-  ]
-}
